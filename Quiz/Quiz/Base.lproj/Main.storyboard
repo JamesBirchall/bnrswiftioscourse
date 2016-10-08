@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Quiz View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="QuizViewController" customModule="Quiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="fr5-w7-ZXj">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbE-U0-0Y1">
+                                <state key="normal" title="Show Question"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="ynV-Vu-MLw">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-a2-Ix7">
+                                <state key="normal" title="Show Answer"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="VbE-U0-0Y1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4hs-s7-Hiz"/>
+                            <constraint firstItem="3tg-a2-Ix7" firstAttribute="top" secondItem="ynV-Vu-MLw" secondAttribute="bottom" constant="8" id="4k0-BC-CkQ"/>
+                            <constraint firstItem="ynV-Vu-MLw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FK4-Mc-Rnx"/>
+                            <constraint firstItem="3tg-a2-Ix7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OoX-Cb-K4l"/>
+                            <constraint firstItem="ynV-Vu-MLw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Q1Y-Bt-1PL"/>
+                            <constraint firstItem="fr5-w7-ZXj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QrT-Ul-JQH"/>
+                            <constraint firstItem="fr5-w7-ZXj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="22" id="Y1t-zQ-8LJ"/>
+                            <constraint firstItem="VbE-U0-0Y1" firstAttribute="top" secondItem="fr5-w7-ZXj" secondAttribute="bottom" constant="8" id="ZDm-Rl-SqS"/>
+                            <constraint firstItem="fr5-w7-ZXj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="jCS-JU-qPA"/>
+                            <constraint firstItem="ynV-Vu-MLw" firstAttribute="top" secondItem="VbE-U0-0Y1" secondAttribute="bottom" constant="80" id="l50-NW-nqa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fr5-w7-ZXj" secondAttribute="trailing" constant="22" id="phL-sO-pDY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ynV-Vu-MLw" secondAttribute="trailing" constant="20" id="u0V-pb-APf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="answerLabel" destination="ynV-Vu-MLw" id="Fd0-Po-uhe"/>
+                        <outlet property="questionLabel" destination="fr5-w7-ZXj" id="H3g-WJ-fsZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
