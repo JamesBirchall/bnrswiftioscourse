@@ -26,6 +26,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbE-U0-0Y1">
                                 <state key="normal" title="Show Question"/>
+                                <connections>
+                                    <action selector="showQuestion" destination="BYZ-38-t0r" eventType="touchUpInside" id="ynu-xH-i7b"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="ynV-Vu-MLw">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -34,6 +37,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-a2-Ix7">
                                 <state key="normal" title="Show Answer"/>
+                                <connections>
+                                    <action selector="showAnswer" destination="BYZ-38-t0r" eventType="touchUpInside" id="6BH-Ss-zUu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,7 +59,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answerButton" destination="3tg-a2-Ix7" id="oVs-Vw-JYe"/>
                         <outlet property="answerLabel" destination="ynV-Vu-MLw" id="Fd0-Po-uhe"/>
+                        <outlet property="questionButton" destination="VbE-U0-0Y1" id="siV-2v-Vqd"/>
                         <outlet property="questionLabel" destination="fr5-w7-ZXj" id="H3g-WJ-fsZ"/>
                     </connections>
                 </viewController>
