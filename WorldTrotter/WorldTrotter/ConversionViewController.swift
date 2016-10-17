@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ConversionViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
+class ConversionViewController: UIViewController, UITextFieldDelegate {
     
     var locationManager: CLLocationManager?
     
