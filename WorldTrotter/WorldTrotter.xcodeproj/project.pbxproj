@@ -15,6 +15,7 @@
 		456E613E1DAA900300FA0896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 456E613C1DAA900300FA0896 /* LaunchScreen.storyboard */; };
 		45BB585F1DB3FA0B0066BBAE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB585E1DB3FA0B0066BBAE /* MapKit.framework */; };
 		45BB58611DB40D120066BBAE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB58601DB40D120066BBAE /* MapViewController.swift */; };
+		45BB58631DB558DF0066BBAE /* Solar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB58621DB558DF0066BBAE /* Solar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		456E613F1DAA900300FA0896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45BB585E1DB3FA0B0066BBAE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45BB58601DB40D120066BBAE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		45BB58621DB558DF0066BBAE /* Solar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				45BB58601DB40D120066BBAE /* MapViewController.swift */,
 				455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */,
 				456E61371DAA900300FA0896 /* Main.storyboard */,
+				45BB58621DB558DF0066BBAE /* Solar.swift */,
 				456E613A1DAA900300FA0896 /* Assets.xcassets */,
 				456E613C1DAA900300FA0896 /* LaunchScreen.storyboard */,
 				456E613F1DAA900300FA0896 /* Info.plist */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45BB58631DB558DF0066BBAE /* Solar.swift in Sources */,
 				456E61361DAA900300FA0896 /* ViewController.swift in Sources */,
 				455FC5911DAEB32D009EBEE5 /* ConversionViewController.swift in Sources */,
 				456E61341DAA900300FA0896 /* AppDelegate.swift in Sources */,

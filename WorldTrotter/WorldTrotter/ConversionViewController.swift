@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ConversionViewController: UIViewController, UITextFieldDelegate {
+class ConversionViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
+    
+    var locationManager: CLLocationManager?
     
     var fahrenheitValue: Double? {
         didSet {
@@ -85,5 +88,56 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         print("ConversionViewController loaded its view.")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // set colour of background here - light for daytime, dark for nighttime
+        // silver challenge
+        
+        // get lat and long values for current location
+        
+        let locationStatus = CLLocationManager.authorizationStatus()
+        
+        if locationStatus == .denied || locationStatus == .restricted {
+            print("Cannot use location services - denied or restricted.")
+        } else {
+            locationManager = CLLocationManager()
+            if locationStatus == .notDetermined {
+                locationManager?.requestWhenInUseAuthorization()
+                
+                if locationStatus == .authorizedWhenInUse {
+                    CLLocationManager.locationServicesEnabled()
+                    print("Location service enabled...")
+                }
+            }
+        }
+        
+        let latitude = locationManager?.location?.coordinate.latitude
+        let longitude = locationManager?.location?.coordinate.longitude
+        
+        if latitude != nil && longitude != nil {
+            print("Lat: \(latitude) : Lon: \(longitude)")
+            
+            let currentDate = Date()
+            
+            let solar = Solar(forDate: currentDate, withTimeZone: .current, latitude: latitude!, longitude: longitude!)
+            
+            let sunrise = solar?.sunrise
+            let sunset = solar?.sunset
+            
+            print("Now: \(currentDate), Sunrise today: \(sunrise), Sunset today: \(sunset)")
+            
+            if sunrise != nil && sunset != nil {    // check for nil
+                if currentDate >= sunrise! && currentDate <= sunset! {
+                    
+                    self.view.backgroundColor = UIColor.yellow
+                    print("Daytime - yellow background")
+                }
+                else {
+                    self.view.backgroundColor = UIColor.darkGray
+                    print("Nighttime - dark grey background")
+                }
+            }
+        }
     }
 }
