@@ -122,8 +122,25 @@ class ConversionViewController: UIViewController, UITextFieldDelegate, CLLocatio
             
             let solar = Solar(forDate: currentDate, withTimeZone: .current, latitude: latitude!, longitude: longitude!)
             
-            let sunrise = solar?.sunrise
-            let sunset = solar?.sunset
+            let sunriseUTC = solar?.sunrise
+            let sunsetUTC = solar?.sunset
+            
+            let timeZone = NSTimeZone()
+            
+            let sunrise: Date?
+            let sunset: Date?
+            
+            timeZone.localizedName(.daylightSaving, locale: nil)
+            
+            if !timeZone.isDaylightSavingTime {
+                // offset Daylight saving time if present
+                sunrise = Date(timeInterval: 60 * 60, since: sunriseUTC!)
+                sunset = Date(timeInterval: 60 * 60, since: sunsetUTC!)
+                //print("Sunrise \(sunrise!) : Sunset \(sunset!)")
+            } else {
+                sunrise = sunriseUTC
+                sunset = sunsetUTC
+            }
             
             print("Now: \(currentDate), Sunrise today: \(sunrise), Sunset today: \(sunset)")
             
