@@ -118,7 +118,7 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         if latitude != nil && longitude != nil {
             print("Lat: \(latitude) : Lon: \(longitude)")
             
-            let currentDate = Date()
+            var currentDate = Date()
             
             let solar = Solar(forDate: currentDate, withTimeZone: .current, latitude: latitude!, longitude: longitude!)
             
@@ -136,6 +136,7 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
                 // offset Daylight saving time if present
                 sunrise = Date(timeInterval: 60 * 60, since: sunriseUTC!)
                 sunset = Date(timeInterval: 60 * 60, since: sunsetUTC!)
+                currentDate = Date(timeInterval: 60 * 60, since: currentDate)
                 //print("Sunrise \(sunrise!) : Sunset \(sunset!)")
             } else {
                 sunrise = sunriseUTC
