@@ -94,6 +94,16 @@
             </objects>
             <point key="canvasLocation" x="2293.125" y="110.91549295774648"/>
         </scene>
+        <!--Web-->
+        <scene sceneID="0U9-2S-Cyo">
+            <objects>
+                <viewController id="Nhp-vc-3P9" customClass="WebViewController" customModule="WorldTrotter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Web" image="MapIcon" id="aKa-vO-4eL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2sh-ds-TMy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2293" y="-633"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nhD-d4-5hJ">
             <objects>
@@ -107,6 +117,7 @@
                     <connections>
                         <segue destination="St4-Nj-lZn" kind="relationship" relationship="viewControllers" id="BAX-Cs-deZ"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="jSd-xc-vJL"/>
+                        <segue destination="Nhp-vc-3P9" kind="relationship" relationship="viewControllers" id="5ZH-uP-u69"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7Z-9f-Dci" userLabel="First Responder" sceneMemberID="firstResponder"/>

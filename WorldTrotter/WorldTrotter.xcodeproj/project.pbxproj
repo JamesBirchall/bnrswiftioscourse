@@ -13,6 +13,7 @@
 		456E61391DAA900300FA0896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 456E61371DAA900300FA0896 /* Main.storyboard */; };
 		456E613B1DAA900300FA0896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456E613A1DAA900300FA0896 /* Assets.xcassets */; };
 		456E613E1DAA900300FA0896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 456E613C1DAA900300FA0896 /* LaunchScreen.storyboard */; };
+		45B118F01DB6A7E6002AA40B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B118EF1DB6A7E6002AA40B /* WebViewController.swift */; };
 		45BB585F1DB3FA0B0066BBAE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB585E1DB3FA0B0066BBAE /* MapKit.framework */; };
 		45BB58611DB40D120066BBAE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB58601DB40D120066BBAE /* MapViewController.swift */; };
 		45BB58631DB558DF0066BBAE /* Solar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB58621DB558DF0066BBAE /* Solar.swift */; };
@@ -27,6 +28,7 @@
 		456E613A1DAA900300FA0896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		456E613D1DAA900300FA0896 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		456E613F1DAA900300FA0896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45B118EF1DB6A7E6002AA40B /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		45BB585E1DB3FA0B0066BBAE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45BB58601DB40D120066BBAE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		45BB58621DB558DF0066BBAE /* Solar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solar.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				45BB58601DB40D120066BBAE /* MapViewController.swift */,
 				455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */,
 				456E61371DAA900300FA0896 /* Main.storyboard */,
+				45B118EF1DB6A7E6002AA40B /* WebViewController.swift */,
 				45BB58621DB558DF0066BBAE /* Solar.swift */,
 				456E613A1DAA900300FA0896 /* Assets.xcassets */,
 				456E613C1DAA900300FA0896 /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BB58631DB558DF0066BBAE /* Solar.swift in Sources */,
+				45B118F01DB6A7E6002AA40B /* WebViewController.swift in Sources */,
 				456E61361DAA900300FA0896 /* ViewController.swift in Sources */,
 				455FC5911DAEB32D009EBEE5 /* ConversionViewController.swift in Sources */,
 				456E61341DAA900300FA0896 /* AppDelegate.swift in Sources */,
