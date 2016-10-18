@@ -42,4 +42,10 @@ class WebViewController: UIViewController, WKUIDelegate {
             print("Load failed...")
         }
     }
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
+    }
+    
+    
 }
