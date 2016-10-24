@@ -11,7 +11,7 @@ import CoreLocation
 
 class ConversionViewController: UIViewController, UITextFieldDelegate {
     
-    var locationManager: CLLocationManager?
+    var locationManager: CLLocationManager!
     
     var fahrenheitValue: Double? {
         didSet {

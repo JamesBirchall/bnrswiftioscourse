@@ -9,16 +9,18 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     var mapView: MKMapView! // implicity unwrapped optional - not needed to setup in init()
+    var locationManager: CLLocationManager!
     
     override func loadView() {
         
         mapView = MKMapView()
         
-        view = mapView //set map to the view - no need to set frame
+        locationManager = CLLocationManager()
         
+        view = mapView //set map to the view - no need to set frame
         
         // segmented control view
         let segmentedControl = UISegmentedControl(items: ["Standard","Hybrid","Satellite"])
@@ -28,6 +30,13 @@ class MapViewController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(segmentedControl)   // add to current view
+        
+        let locationButton = UIButton(type: .infoDark)
+        locationButton.setTitle("Show Location", for: .normal)
+        locationButton.addTarget(self, action: #selector(self.findLocationPressed), for: .touchUpInside)
+        locationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(locationButton)
         
         //let topConstraint = segmentedControl.topAnchor.constraint(equalTo: view.topAnchor)
         
@@ -43,6 +52,14 @@ class MapViewController: UIViewController {
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
         
+        let buttonBottomConstraint = locationButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -30)
+        let buttonLeadingConstraint = locationButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
+        let buttonTrailingConstraint = locationButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        
+        buttonBottomConstraint.isActive = true
+        buttonLeadingConstraint.isActive = true
+        buttonTrailingConstraint.isActive = true
+        
         segmentedControl.addTarget(self, action: #selector(self.mapTypeChanged), for: .valueChanged)
     }
 
@@ -50,6 +67,10 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
 
         print("MapViewController loaded its view.")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.locationManager.delegate = self
     }
     
     func mapTypeChanged(segControl: UISegmentedControl) {
@@ -63,5 +84,40 @@ class MapViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func findLocationPressed() {
+        //print("Pressed find location!")
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.startUpdatingLocation()
+            self.mapView.showsUserLocation = true
+        } else {
+            self.locationManager.requestWhenInUseAuthorization()
+            findLocationPressed()
+        }
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        print("Location updated...")
+        
+        let location = locations.last
+        let centre = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        
+        let region = MKCoordinateRegionMakeWithDistance(centre, 500, 500)
+        
+        print(centre)   // this value doesn't appear to change...
+        
+        self.mapView.setRegion(region, animated: true)
+        self.mapView.showsTraffic = true
+        
+        self.locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error With Location: \(error.localizedDescription)")
     }
 }
