@@ -14,6 +14,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var mapView: MKMapView! // implicity unwrapped optional - not needed to setup in init()
     var locationManager: CLLocationManager!
     
+    var pinsAdded = false
+    
     override func loadView() {
         
         mapView = MKMapView()
@@ -61,6 +63,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         buttonTrailingConstraint.isActive = true
         
         segmentedControl.addTarget(self, action: #selector(self.mapTypeChanged), for: .valueChanged)
+        
+        pinsAdded = false   // so we can reset the annotations
     }
 
     override func viewDidLoad() {
@@ -93,11 +97,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.startUpdatingLocation()
             self.mapView.showsUserLocation = true
+            
+            if !pinsAdded {
+                addPinsToMap()
+                pinsAdded = true
+            }
         } else {
             self.locationManager.requestWhenInUseAuthorization()
             findLocationPressed()
         }
-
+        
+    }
+    
+    func addPinsToMap() {
+        
+    let bornLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.068785, longitude: -1.794472), title: "Born Here!", subtitle: "I was born Here!")
+        
+        mapView.addAnnotation(bornLocationPin)
+//        let salisburyBorn = MKMapPoint
+//        salisburyBorn.pinTintColor = UIColor.red
+//        salisburyBorn.
+        //mapView.addAnnotation(salisburyBorn)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

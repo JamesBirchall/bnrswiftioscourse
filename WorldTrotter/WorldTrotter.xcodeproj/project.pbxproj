@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451250571DBF32C600F835EA /* LocationPins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451250561DBF32C600F835EA /* LocationPins.swift */; };
 		455FC5911DAEB32D009EBEE5 /* ConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */; };
 		456E61341DAA900300FA0896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E61331DAA900300FA0896 /* AppDelegate.swift */; };
 		456E61361DAA900300FA0896 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E61351DAA900300FA0896 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		451250561DBF32C600F835EA /* LocationPins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPins.swift; sourceTree = "<group>"; };
 		455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionViewController.swift; sourceTree = "<group>"; };
 		456E61301DAA900300FA0896 /* WorldTrotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorldTrotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		456E61331DAA900300FA0896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				456E61331DAA900300FA0896 /* AppDelegate.swift */,
 				456E61351DAA900300FA0896 /* ViewController.swift */,
 				45BB58601DB40D120066BBAE /* MapViewController.swift */,
+				451250561DBF32C600F835EA /* LocationPins.swift */,
 				455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */,
 				456E61371DAA900300FA0896 /* Main.storyboard */,
 				45B118EF1DB6A7E6002AA40B /* WebViewController.swift */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BB58631DB558DF0066BBAE /* Solar.swift in Sources */,
+				451250571DBF32C600F835EA /* LocationPins.swift in Sources */,
 				45B118F01DB6A7E6002AA40B /* WebViewController.swift in Sources */,
 				456E61361DAA900300FA0896 /* ViewController.swift in Sources */,
 				455FC5911DAEB32D009EBEE5 /* ConversionViewController.swift in Sources */,
