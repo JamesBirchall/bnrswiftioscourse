@@ -28,41 +28,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let segmentedControl = UISegmentedControl(items: ["Standard","Hybrid","Satellite"])
         segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         segmentedControl.selectedSegmentIndex = 0
-        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(segmentedControl)   // add to current view
         
-        let locationButton = UIButton(type: .infoDark)
-        locationButton.setTitle("Show Location", for: .normal)
+        let locationButton = UIButton(type: .system)
+        locationButton.setTitle("Find Me", for: .normal)
         locationButton.addTarget(self, action: #selector(self.findLocationPressed), for: .touchUpInside)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(locationButton)
         
-        //let topConstraint = segmentedControl.topAnchor.constraint(equalTo: view.topAnchor)
+        let segmentControlPins = UISegmentedControl(items: ["Born","Home","Auckland"])
+        segmentControlPins.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        segmentControlPins.selectedSegmentIndex  = 0
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(segmentControlPins)
         
-        let topConstraint = segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8)
-        //let leadingConstraint = segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+
+        // we want Segment Control 1 in middle, at top
+        // we want Segment Control 2 in middle, at bottom
+        // we want Find Me button in middle, ontop of Segment Control 2
+
+        let margins = view.layoutMarginsGuide   // get superviews layout
         
-        let margins = view.layoutMarginsGuide
-        let leadingConstraint = segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
-        //let trailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let trailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         
-        topConstraint.isActive = true
-        leadingConstraint.isActive = true
-        trailingConstraint.isActive = true
-        
-        let buttonBottomConstraint = locationButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -30)
-        let buttonLeadingConstraint = locationButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
-        let buttonTrailingConstraint = locationButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
-        
-        buttonBottomConstraint.isActive = true
-        buttonLeadingConstraint.isActive = true
-        buttonTrailingConstraint.isActive = true
-        
-        segmentedControl.addTarget(self, action: #selector(self.mapTypeChanged), for: .valueChanged)
+        segmentControlPins.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        segmentControlPins.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
+        //segmentControlPins.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
         
         pinsAdded = false   // so we can reset the annotations
     }
@@ -97,11 +91,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.startUpdatingLocation()
             self.mapView.showsUserLocation = true
-            
-            if !pinsAdded {
-                addPinsToMap()
-                pinsAdded = true
-            }
         } else {
             self.locationManager.requestWhenInUseAuthorization()
             findLocationPressed()
@@ -109,15 +98,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    func addPinsToMap() {
+    func addPinsToMap(segControl: UISegmentedControl) {
         
-    let bornLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.068785, longitude: -1.794472), title: "Born Here!", subtitle: "I was born Here!")
+        switch segControl.selectedSegmentIndex {
+        case 0:
+            let bornLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.068785,
+                                                                                    longitude: -1.794472), title: "Born Here!", subtitle: "I was born Here!")
+            mapView.addAnnotation(bornLocationPin)
+        case 1:
+            let homeLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.656489,
+                                                                                    longitude: -0.390320), title: "Home is Here!", subtitle: "I live here!")
+            mapView.addAnnotation(homeLocationPin)
+        case 2:
+            let aucklandLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: -36.848460,
+                                                                                    longitude: 174.763332), title: "Interesting place!", subtitle: "Hey it's Auckland NZ!")
+            mapView.addAnnotation(aucklandLocationPin)
+        default:
+            break
+        }
         
-        mapView.addAnnotation(bornLocationPin)
-//        let salisburyBorn = MKMapPoint
-//        salisburyBorn.pinTintColor = UIColor.red
-//        salisburyBorn.
-        //mapView.addAnnotation(salisburyBorn)
+    
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
