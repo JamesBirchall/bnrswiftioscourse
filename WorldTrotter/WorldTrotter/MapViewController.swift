@@ -53,10 +53,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        let segmentControlHeight = NSLayoutConstraint(item: segmentedControl, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         
-        segmentControlPins.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        segmentControlPins.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        //segmentControlPins.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
+        segmentControlPins.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        segmentControlPins.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        //segmentControlPins.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 50)
+        
+        self.updateViewConstraints()
+        
+        //let pinSegment = NSLayoutConstraint(item: segmentControlPins, attribute: .top, relatedBy:.greaterThanOrEqual, toItem: segmentedControl, attribute: .bottom, multiplier: 1.0, constant: 20.0).isActive = true
         
         pinsAdded = false   // so we can reset the annotations
     }
