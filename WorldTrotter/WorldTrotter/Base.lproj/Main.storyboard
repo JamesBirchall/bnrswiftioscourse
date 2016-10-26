@@ -44,7 +44,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
                                     <action selector="farhFieldEditingChangedWithTextField:" destination="BYZ-38-t0r" eventType="editingChanged" id="iDq-U7-Yga"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="JM1-G3-Igf"/>
