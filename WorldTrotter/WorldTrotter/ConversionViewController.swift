@@ -39,8 +39,14 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var textField: UITextField!
     
     @IBAction func farhFieldEditingChanged(textField: UITextField) {
-        if let text = textField.text, let value = Double(text) {
-            fahrenheitValue = value
+//        if let text = textField.text, let value = Double(text) {
+//            fahrenheitValue = value
+//        } else {
+//            fahrenheitValue = nil
+//        }
+        
+        if let text = textField.text, let number = numberFormatter.number(from: text) {
+            fahrenheitValue = number.doubleValue
         } else {
             fahrenheitValue = nil
         }
@@ -65,14 +71,20 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         // bronze challenge
         let isDigit = string.rangeOfCharacter(from: CharacterSet.decimalDigits)
 
-        let existingTextHasDecimalSeperator = textField.text?.range(of: ".")
+        // removing due to Locale setting instead
+//        let existingTextHasDecimalSeperator = textField.text?.range(of: ".")
+//        let replacementTextHasDecimalSeperator = string.range(of: ".")
         
-        let replacementTextHasDecimalSeperator = string.range(of: ".")
+        let currentLocale = Locale.current
+        let decimalSeperator:String! = currentLocale.decimalSeparator
+        
+        let existingTextHasDecimalSeperator = textField.text?.range(of: decimalSeperator)
+        let replacementTextHasDecimalSeperator = string.range(of: decimalSeperator)
         
         if (isDigit == nil && string != "") {
             
             // check character isn't "."
-            if string != "." {
+            if string != decimalSeperator {
                 return false
             }
         }
