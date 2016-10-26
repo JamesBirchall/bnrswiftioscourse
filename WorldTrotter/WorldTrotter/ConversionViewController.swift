@@ -69,7 +69,7 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         
         let replacementTextHasDecimalSeperator = string.range(of: ".")
         
-        if isDigit == nil {
+        if (isDigit == nil && string != "") {
             
             // check character isn't "."
             if string != "." {
