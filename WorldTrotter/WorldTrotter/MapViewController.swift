@@ -13,6 +13,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     var mapView: MKMapView! // implicity unwrapped optional - not needed to setup in init()
     var locationManager: CLLocationManager!
+    var setLocationBorn = false
+    var setLocationLive = false
+    var setInterestingLocation = false
     
     var pinsAdded = false
     
@@ -39,7 +42,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         let segmentControlPins = UISegmentedControl(items: ["Born","Home","Auckland"])
         segmentControlPins.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        segmentControlPins.selectedSegmentIndex  = 0
         segmentControlPins.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentControlPins)
         
@@ -113,15 +115,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         case 0:
             let bornLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.068785,
                                                                                     longitude: -1.794472), title: "Born Here!", subtitle: "I was born Here!")
-            mapView.addAnnotation(bornLocationPin)
+            if !setLocationBorn {
+                mapView.addAnnotation(bornLocationPin)
+                setLocationBorn = true
+            }
+            let centre = CLLocationCoordinate2D(latitude: 51.068785, longitude: -1.794472)
+            let region = MKCoordinateRegionMakeWithDistance(centre, 500, 500)
+            self.mapView.setRegion(region, animated: true)
         case 1:
             let homeLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: 51.656489,
                                                                                     longitude: -0.390320), title: "Home is Here!", subtitle: "I live here!")
-            mapView.addAnnotation(homeLocationPin)
+            if !setLocationLive {
+                mapView.addAnnotation(homeLocationPin)
+                setLocationLive = true
+            }
+            let centre = CLLocationCoordinate2D(latitude: 51.656489, longitude: -0.390320)
+            let region = MKCoordinateRegionMakeWithDistance(centre, 500, 500)
+            self.mapView.setRegion(region, animated: true)
         case 2:
             let aucklandLocationPin = LocationPin(location: CLLocationCoordinate2D.init(latitude: -36.848460,
                                                                                     longitude: 174.763332), title: "Interesting place!", subtitle: "Hey it's Auckland NZ!")
-            mapView.addAnnotation(aucklandLocationPin)
+            if !setInterestingLocation {
+                mapView.addAnnotation(aucklandLocationPin)
+                setInterestingLocation = true
+            }
+            let centre = CLLocationCoordinate2D(latitude: -36.848460, longitude: 174.763332)
+            let region = MKCoordinateRegionMakeWithDistance(centre, 500, 500)
+            self.mapView.setRegion(region, animated: true)
         default:
             break
         }
@@ -138,11 +158,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         let region = MKCoordinateRegionMakeWithDistance(centre, 500, 500)
         
-        print(centre)   // this value doesn't appear to change...
+        //print(centre)   // this value doesn't appear to change...
         
         self.mapView.setRegion(region, animated: true)
-        self.mapView.showsTraffic = true
-        
         self.locationManager.stopUpdatingLocation()
     }
     
