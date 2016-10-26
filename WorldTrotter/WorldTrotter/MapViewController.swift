@@ -28,7 +28,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         view = mapView //set map to the view - no need to set frame
         
         // segmented control view
-        let segmentedControl = UISegmentedControl(items: ["Standard","Hybrid","Satellite"])
+        
+        // for localisation setup strings correctly
+        let standardString = NSLocalizedString("Standard", comment: "Standard Map View")
+        let hybridString = NSLocalizedString("Hybrid", comment: "Hybrid Map View")
+        let satelliteString = NSLocalizedString("Satellite", comment: "Satellite Map View")
+        
+        let segmentedControl = UISegmentedControl(items: [standardString, hybridString, satelliteString])
         segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +46,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(locationButton)
         
-        let segmentControlPins = UISegmentedControl(items: ["Born","Home","Auckland"])
+        // add strings for localisation into other languages
+        let bornString = NSLocalizedString("Born", comment: "Born Location")
+        let homeString = NSLocalizedString("Home", comment: "Home Location")
+        let aucklandString = NSLocalizedString("Auckland", comment: "Auckland Location")
+        let segmentControlPins = UISegmentedControl(items: [bornString, homeString, aucklandString])
         segmentControlPins.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         segmentControlPins.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentControlPins)
