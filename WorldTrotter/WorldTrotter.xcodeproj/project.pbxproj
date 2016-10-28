@@ -28,6 +28,8 @@
 		4550AD031DC14FFE006DA54D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4550AD051DC15000006DA54D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4550AD061DC15001006DA54D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		455524581DC3BB1D00563D09 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		455524591DC3BB1D00563D09 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		455FC5901DAEB32D009EBEE5 /* ConversionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionViewController.swift; sourceTree = "<group>"; };
 		456E61301DAA900300FA0896 /* WorldTrotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorldTrotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		456E61331DAA900300FA0896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				en,
 				Base,
 				es,
+				de,
 			);
 			mainGroup = 456E61271DAA900300FA0896;
 			productRefGroup = 456E61311DAA900300FA0896 /* Products */;
@@ -192,6 +195,7 @@
 				4550AD031DC14FFE006DA54D /* Base */,
 				4550AD051DC15000006DA54D /* en */,
 				4550AD061DC15001006DA54D /* es */,
+				455524591DC3BB1D00563D09 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -202,6 +206,7 @@
 				456E61381DAA900300FA0896 /* Base */,
 				4550ACFE1DC14B63006DA54D /* en */,
 				4550ACFF1DC14BE8006DA54D /* es */,
+				455524581DC3BB1D00563D09 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
