@@ -40,8 +40,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentedControl)   // add to current view
         
+        let findMeString = NSLocalizedString("Find Me", comment: "Find My Location")
         let locationButton = UIButton(type: .system)
-        locationButton.setTitle("Find Me", for: .normal)
+        locationButton.setTitle(findMeString, for: .normal)
         locationButton.addTarget(self, action: #selector(self.findLocationPressed), for: .touchUpInside)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(locationButton)
@@ -66,17 +67,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         
+        
         segmentControlPins.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         segmentControlPins.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        segmentControlPins.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
+        segmentControlPins.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -25).isActive = true
         
         locationButton.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
         locationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        // add target actions for the 2 controls and button
         locationButton.addTarget(self, action: #selector(findLocationPressed), for: .touchUpInside)
-    
         segmentedControl.addTarget(self, action: #selector(mapTypeChanged(segControl:)), for: .valueChanged)
-        
         segmentControlPins.addTarget(self, action: #selector(addPinsToMap(segControl:)), for: .valueChanged)
         
         pinsAdded = false   // so we can reset the annotations
