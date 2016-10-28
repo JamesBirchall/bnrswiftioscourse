@@ -17,6 +17,10 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var questionButton: UIButton!
     @IBOutlet weak var answerButton: UIButton!
     
+    // Layout Constraints for flying in labels!
+    @IBOutlet weak var currentQuestionLabelCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nextQuestionLabelCenterXConstraint: NSLayoutConstraint!
+    
     var questionsAndAnswers = QuestionsAndAnswers()
     
     enum LabelType {
@@ -51,6 +55,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         answerButton.isEnabled = false
+        updateOffScreenLabel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,12 +95,19 @@ class QuizViewController: UIViewController {
         
         // animations have completion handlers to do some activty once they have completed such as swapping references
         
+        view.layoutIfNeeded()
+        
+        let screenWidth = self.view.frame.width
+        self.nextQuestionLabelCenterXConstraint.constant = 0
+        self.currentQuestionLabelCenterXConstraint.constant += screenWidth
+        
         UIView.animate(withDuration: 2.0, animations: {
             () -> Void in
             switch label {
             case .question:
                 self.currentQuestionLabel.alpha = 0
                 self.nextQuestionLabel.alpha = 1
+                self.view.layoutIfNeeded()  // redraws is needed
             case .answer:
                 self.answerLabel.alpha = 1
             }
@@ -104,11 +116,19 @@ class QuizViewController: UIViewController {
                 switch label {
                 case .question:
                     swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
+                    swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
+                    self.updateOffScreenLabel()
                 case .answer:
                     break
                 }
                 
         })
+    }
+    
+    func updateOffScreenLabel() {
+        // set nextQuestionLabel to be moved offscreen to start with
+        let screenWidth = view.frame.width
+        nextQuestionLabelCenterXConstraint.constant = -screenWidth
     }
 }
 
