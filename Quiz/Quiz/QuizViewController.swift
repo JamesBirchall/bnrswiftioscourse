@@ -122,31 +122,66 @@ class QuizViewController: UIViewController {
 //                
 //        })
         
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
-            () -> Void in
-            switch label {
-            case .question:
-                self.view.layoutIfNeeded()
-                let screenWidth = self.view.frame.width
-                self.nextQuestionLabelCenterXConstraint.constant = 0
-                self.currentQuestionLabelCenterXConstraint.constant += screenWidth
-                self.currentQuestionLabel.alpha = 0
-                self.nextQuestionLabel.alpha = 1
-                self.view.layoutIfNeeded()  // redraws is needed
-            case .answer:
-                self.answerLabel.alpha = 1
-            }
-        }, completion: {
-            _ in
-            switch label {
-            case .question:
-                swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
-                swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
-                self.updateOffScreenLabel()
-            case .answer:
-                break
-            }
-            
+//        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
+//            () -> Void in
+//            switch label {
+//            case .question:
+//                self.view.layoutIfNeeded()
+//                let screenWidth = self.view.frame.width
+//                self.nextQuestionLabelCenterXConstraint.constant = 0
+//                self.currentQuestionLabelCenterXConstraint.constant += screenWidth
+//                self.currentQuestionLabel.alpha = 0
+//                self.nextQuestionLabel.alpha = 1
+//                self.view.layoutIfNeeded()  // redraws is needed
+//            case .answer:
+//                self.answerLabel.alpha = 1
+//            }
+//        }, completion: {
+//            _ in
+//            switch label {
+//            case .question:
+//                swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
+//                swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
+//                self.updateOffScreenLabel()
+//            case .answer:
+//                break
+//            }
+//            
+//        })
+        
+        
+        // spring animation
+        UIView.animate(withDuration: 1.0,
+                       delay: 0,
+                       usingSpringWithDamping: 0.65,
+                       initialSpringVelocity: 0.5,
+                       options: [.curveEaseIn],
+                       animations: {
+                        () -> Void in
+                        switch label {
+                        case .question:
+                            self.view.layoutIfNeeded()
+                            let screenWidth = self.view.frame.width
+                            self.nextQuestionLabelCenterXConstraint.constant = 0
+                            self.currentQuestionLabelCenterXConstraint.constant += screenWidth
+                            self.currentQuestionLabel.alpha = 0
+                            self.nextQuestionLabel.alpha = 1
+                            self.view.layoutIfNeeded()  // redraws is needed
+                        case .answer:
+                            self.answerLabel.alpha = 1
+                        }
+        },
+                       completion: {
+                        _ in
+                        switch label {
+                        case .question:
+                            swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
+                            swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
+                            self.updateOffScreenLabel()
+                        case .answer:
+                            break
+                        }
+                        
         })
     }
     
