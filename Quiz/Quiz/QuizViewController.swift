@@ -95,16 +95,14 @@ class QuizViewController: UIViewController {
         
         // animations have completion handlers to do some activty once they have completed such as swapping references
         
-        view.layoutIfNeeded()
-        
-        let screenWidth = self.view.frame.width
-        self.nextQuestionLabelCenterXConstraint.constant = 0
-        self.currentQuestionLabelCenterXConstraint.constant += screenWidth
-        
-        UIView.animate(withDuration: 2.0, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             () -> Void in
             switch label {
             case .question:
+                self.view.layoutIfNeeded()
+                let screenWidth = self.view.frame.width
+                self.nextQuestionLabelCenterXConstraint.constant = 0
+                self.currentQuestionLabelCenterXConstraint.constant += screenWidth
                 self.currentQuestionLabel.alpha = 0
                 self.nextQuestionLabel.alpha = 1
                 self.view.layoutIfNeeded()  // redraws is needed
