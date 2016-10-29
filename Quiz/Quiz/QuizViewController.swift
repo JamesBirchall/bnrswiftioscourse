@@ -61,7 +61,6 @@ class QuizViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         currentQuestionLabel.alpha = 0
-        nextQuestionLabel.alpha = 0
         animateLabelTransitions(label: .question)
     }
     
