@@ -95,7 +95,34 @@ class QuizViewController: UIViewController {
         
         // animations have completion handlers to do some activty once they have completed such as swapping references
         
-        UIView.animate(withDuration: 0.5, animations: {
+//        UIView.animate(withDuration: 0.5, animations: {
+//            () -> Void in
+//            switch label {
+//            case .question:
+//                self.view.layoutIfNeeded()
+//                let screenWidth = self.view.frame.width
+//                self.nextQuestionLabelCenterXConstraint.constant = 0
+//                self.currentQuestionLabelCenterXConstraint.constant += screenWidth
+//                self.currentQuestionLabel.alpha = 0
+//                self.nextQuestionLabel.alpha = 1
+//                self.view.layoutIfNeeded()  // redraws is needed
+//            case .answer:
+//                self.answerLabel.alpha = 1
+//            }
+//            }, completion: {
+//                _ in
+//                switch label {
+//                case .question:
+//                    swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
+//                    swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
+//                    self.updateOffScreenLabel()
+//                case .answer:
+//                    break
+//                }
+//                
+//        })
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
             () -> Void in
             switch label {
             case .question:
@@ -109,17 +136,17 @@ class QuizViewController: UIViewController {
             case .answer:
                 self.answerLabel.alpha = 1
             }
-            }, completion: {
-                _ in
-                switch label {
-                case .question:
-                    swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
-                    swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
-                    self.updateOffScreenLabel()
-                case .answer:
-                    break
-                }
-                
+        }, completion: {
+            _ in
+            switch label {
+            case .question:
+                swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
+                swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
+                self.updateOffScreenLabel()
+            case .answer:
+                break
+            }
+            
         })
     }
     
