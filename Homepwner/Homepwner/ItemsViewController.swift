@@ -60,7 +60,6 @@ class ItemsViewController: UITableViewController {
     
     @IBAction func toggleEditingMode(sender: UIButton) {
         
-        print("Item Count: \(itemStore.allItems.count)")
         if isEditing {
             sender.setTitle("Edit", for: .normal)
             setEditing(false, animated: true)
@@ -129,6 +128,18 @@ class ItemsViewController: UITableViewController {
     // bronze challenge - change delete button title
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
+    }
+    
+    // gold challenge - stops movement to final row by placing 1 before it!
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+
+        if sourceIndexPath.row < proposedDestinationIndexPath.row {
+            if proposedDestinationIndexPath.row == (itemStore.allItems.count-1) {
+                return IndexPath(row: (proposedDestinationIndexPath.row - 1), section: 0)
+            }
+        }
+        
+        return proposedDestinationIndexPath
     }
     
     func deleteItem(itemPosition: Int) {
