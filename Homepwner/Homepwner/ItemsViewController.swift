@@ -68,17 +68,33 @@ class ItemsViewController: UITableViewController {
         
         // delete routine
         if editingStyle == .delete {
-            // remove model object at exact location
-            itemStore.allItems.remove(at: indexPath.row)
-            // remove from tableview to keep in sync
-            tableView.deleteRows(at: [indexPath], with: .automatic)
             
-            // reset editing button and isEditing Mode back to not Editing tableview
-            if itemStore.allItems.count == 0 {
-//                editButton.setTitle("Edit", for: .normal)
-//                setEditing(false, animated: true)
-                toggleEditingMode(sender: editButton)
-            }
+            // create alert and get answer before proceeding
+            let title = "Delete \(itemStore.allItems[indexPath.row].name)?"
+            let message = "Are you sure you want to delete this item?"
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {
+              // code here for handling deletion then!
+                (action) -> Void in
+                // remove model object at exact location
+                self.itemStore.allItems.remove(at: indexPath.row)
+                // remove from tableview to keep in sync
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                // reset editing button and isEditing Mode back to not Editing tableview
+                if self.itemStore.allItems.count == 0 {
+                    //                editButton.setTitle("Edit", for: .normal)
+                    //                setEditing(false, animated: true)
+                    self.toggleEditingMode(sender: self.editButton)
+                }
+            })
+            alertController.addAction(deleteAction)
+            
+            // present the alert controller
+            present(alertController, animated: true, completion: nil)
         }
     }
     
