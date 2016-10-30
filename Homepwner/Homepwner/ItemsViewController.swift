@@ -11,6 +11,7 @@ import UIKit
 class ItemsViewController: UITableViewController {
     
     var itemStore: ItemStore!
+    @IBOutlet weak var editButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,54 @@ class ItemsViewController: UITableViewController {
         cell.detailTextLabel?.text = "$\(item.valueInDollars)"
         
         return cell
+    }
+    
+    @IBAction func addNewItem() {
+        
+        let newItem = itemStore.createItem()    // setup a new model object to match adding row in second
+        
+        // if we get an index for this new item in the store, add a new row to tableView to keep in sync
+        if let index = itemStore.allItems.index(of: newItem) {
+            let indexPath = IndexPath(row: index, section: 0) // only 1 section in this app!
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    @IBAction func toggleEditingMode(sender: UIButton) {
+        if isEditing {
+            sender.setTitle("Edit", for: .normal)
+            setEditing(false, animated: true)
+        } else {
+            sender.setTitle("Done", for: .normal)
+            setEditing(true, animated: true)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        // delete routine
+        if editingStyle == .delete {
+            // remove model object at exact location
+            itemStore.allItems.remove(at: indexPath.row)
+            // remove from tableview to keep in sync
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            // reset editing button and isEditing Mode back to not Editing tableview
+            if itemStore.allItems.count == 0 {
+//                editButton.setTitle("Edit", for: .normal)
+//                setEditing(false, animated: true)
+                toggleEditingMode(sender: editButton)
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // move in the object model as well
+        itemStore.moveItemAtIndex(from: sourceIndexPath.row, to: destinationIndexPath.row)
+    }
+    
+    func deleteItem(itemPosition: Int) {
+        itemStore.allItems.remove(at: itemPosition)
     }
 }
 

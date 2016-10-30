@@ -21,10 +21,22 @@ class ItemStore {
         return newItem
     }
     
-    init() {
-        for _ in 0..<5 {
-            let item = createItem()
-            print("Item created: \(item.name)")
+    func moveItemAtIndex(from: Int, to: Int) {
+        if from == to {
+            return  // no change needed
         }
+        
+        // clone from item, delete its original then move to new location
+        let movedItem = allItems[from]
+        allItems.remove(at: from)
+        allItems.insert(movedItem, at: to)
     }
+
+    // used before we had add functionality
+//    init() {
+//        for _ in 0..<5 {
+//            let item = createItem()
+//            print("Item created: \(item.name)")
+//        }
+//    }
 }
