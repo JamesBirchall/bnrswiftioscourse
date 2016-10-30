@@ -13,6 +13,8 @@ class ItemsViewController: UITableViewController {
     //var itemStore: ItemStore!
     var itemSections: [ItemSectionStore]!
     
+    let noMoreItemString = "No more items"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,8 +25,8 @@ class ItemsViewController: UITableViewController {
         tableView.scrollIndicatorInsets = insets
         
         // silver challenge - add final section and empty row!
-        let emptyItem = Item(name: "No more items", valueInDollars: 0, serialNumber: nil)
-        itemSections.append(ItemSectionStore(headerName: "Nothing to see", itemStores: [emptyItem]))
+        let emptyItem = Item(name: noMoreItemString, valueInDollars: 0, serialNumber: nil)
+        itemSections.append(ItemSectionStore(headerName: noMoreItemString, itemStores: [emptyItem]))
     }
     
 
@@ -36,6 +38,18 @@ class ItemsViewController: UITableViewController {
         let item = section.itemStores[indexPath.row]
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height))
+        let image = UIImage(named: "itemBackground")
+        
+        imageView.image = image
+        cell.backgroundView = UIView()
+        cell.backgroundView?.addSubview(imageView)
+        
+        cell.textLabel?.backgroundColor = UIColor.clear
+        cell.textLabel?.textColor = UIColor.white
+        cell.detailTextLabel?.backgroundColor = UIColor.clear
+        cell.detailTextLabel?.textColor = UIColor.white
         
         return cell
     }
@@ -56,6 +70,21 @@ class ItemsViewController: UITableViewController {
         let section = itemSections[section]
         
         return section.headerName
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // set height generally to 60, set to lower if its the section with None in!
+        var height = 60.0
+        
+        let section = itemSections[indexPath.section]
+        let item = section.itemStores[indexPath.row]
+        
+        if item.name == noMoreItemString {
+            height = 40
+            print("Height for this row changed: \(section.headerName)")
+        }
+        
+        return CGFloat(height)
     }
 }
 

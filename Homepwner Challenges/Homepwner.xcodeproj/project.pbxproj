@@ -15,6 +15,7 @@
 		45A34B381DC51429004D6D17 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A34B371DC51429004D6D17 /* Item.swift */; };
 		45A34B3A1DC522F2004D6D17 /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A34B391DC522F2004D6D17 /* ItemStore.swift */; };
 		45A34B3E1DC5EC46004D6D17 /* ItemSectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A34B3D1DC5EC46004D6D17 /* ItemSectionStore.swift */; };
+		45B5025A1DC6214500243191 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B502591DC6214500243191 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		45A34B371DC51429004D6D17 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		45A34B391DC522F2004D6D17 /* ItemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		45A34B3D1DC5EC46004D6D17 /* ItemSectionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSectionStore.swift; sourceTree = "<group>"; };
+		45B502591DC6214500243191 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				45A34B261DC51121004D6D17 /* ItemsViewController.swift */,
 				45A34B3D1DC5EC46004D6D17 /* ItemSectionStore.swift */,
 				45A34B281DC51121004D6D17 /* Main.storyboard */,
+				45B502591DC6214500243191 /* ItemCell.swift */,
 				45A34B371DC51429004D6D17 /* Item.swift */,
 				45A34B391DC522F2004D6D17 /* ItemStore.swift */,
 				45A34B2B1DC51121004D6D17 /* Assets.xcassets */,
@@ -156,6 +159,7 @@
 			files = (
 				45A34B271DC51121004D6D17 /* ItemsViewController.swift in Sources */,
 				45A34B3E1DC5EC46004D6D17 /* ItemSectionStore.swift in Sources */,
+				45B5025A1DC6214500243191 /* ItemCell.swift in Sources */,
 				45A34B381DC51429004D6D17 /* Item.swift in Sources */,
 				45A34B3A1DC522F2004D6D17 /* ItemStore.swift in Sources */,
 				45A34B251DC51121004D6D17 /* AppDelegate.swift in Sources */,
