@@ -21,14 +21,19 @@ class ItemsViewController: UITableViewController {
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
+        
+        // silver challenge - add final section and empty row!
+        let emptyItem = Item(name: "No more items", valueInDollars: 0, serialNumber: nil)
+        itemSections.append(ItemSectionStore(headerName: "Nothing to see", itemStores: [emptyItem]))
     }
+    
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
         let section = itemSections[indexPath.section]
         let item = section.itemStores[indexPath.row]
-        
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "$\(item.valueInDollars)"
         
@@ -52,6 +57,5 @@ class ItemsViewController: UITableViewController {
         
         return section.headerName
     }
-    
 }
 
