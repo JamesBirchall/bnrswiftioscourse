@@ -21,6 +21,10 @@ class ItemsViewController: UITableViewController {
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
+        
+        // add a final row for No More Items
+        let itemNoMore = Item(name: "No More Items!", valueInDollars: 0, serialNumber: nil)
+        itemStore.allItems.append(itemNoMore)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,6 +59,8 @@ class ItemsViewController: UITableViewController {
     }
     
     @IBAction func toggleEditingMode(sender: UIButton) {
+        
+        print("Item Count: \(itemStore.allItems.count)")
         if isEditing {
             sender.setTitle("Edit", for: .normal)
             setEditing(false, animated: true)
@@ -76,7 +82,7 @@ class ItemsViewController: UITableViewController {
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alertController.addAction(cancelAction)
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {
+            let deleteAction = UIAlertAction(title: "Remove", style: .destructive, handler: {
               // code here for handling deletion then!
                 (action) -> Void in
                 // remove model object at exact location
@@ -99,8 +105,30 @@ class ItemsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
         // move in the object model as well
         itemStore.moveItemAtIndex(from: sourceIndexPath.row, to: destinationIndexPath.row)
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row == (itemStore.allItems.count - 1) {
+            return UITableViewCellEditingStyle.none
+        } else {
+            return UITableViewCellEditingStyle.delete
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == (itemStore.allItems.count - 1) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    // bronze challenge - change delete button title
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
     }
     
     func deleteItem(itemPosition: Int) {
