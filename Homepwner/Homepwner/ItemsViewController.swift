@@ -22,6 +22,8 @@ class ItemsViewController: UITableViewController {
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
         
+        tableView.rowHeight = 65
+        
         // add a final row for No More Items
 //        let itemNoMore = Item(name: "No More Items!", valueInDollars: 0, serialNumber: nil)
 //        itemStore.allItems.append(itemNoMore)
@@ -37,12 +39,27 @@ class ItemsViewController: UITableViewController {
         
         //let cell = UITableViewCell(style: .value1, reuseIdentifier: "ItemCell")
         
-        //
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        // as! ItemCell needed to make sure we can use subclass properties
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        
+        // update labels for font changes
+        cell.updateLabels()
+        
         let item = itemStore.allItems[indexPath.row]
 
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+//        cell.textLabel?.text = item.name
+//        cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+        
+        cell.nameLabel.text = item.name
+        cell.detailLabel.text = item.serialNumber
+        cell.priceLabel.text = "$\(item.valueInDollars)"
+        
+        // green or red? - bronze challenge
+        if item.valueInDollars >= 50 {
+            cell.priceLabel.textColor = UIColor.red
+        } else {
+            cell.priceLabel.textColor = UIColor.green
+        }
         
         return cell
     }
@@ -146,5 +163,7 @@ class ItemsViewController: UITableViewController {
     func deleteItem(itemPosition: Int) {
         itemStore.allItems.remove(at: itemPosition)
     }
+    
+
 }
 
