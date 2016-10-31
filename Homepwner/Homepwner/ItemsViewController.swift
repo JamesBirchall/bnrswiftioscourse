@@ -23,8 +23,8 @@ class ItemsViewController: UITableViewController {
         tableView.scrollIndicatorInsets = insets
         
         // add a final row for No More Items
-        let itemNoMore = Item(name: "No More Items!", valueInDollars: 0, serialNumber: nil)
-        itemStore.allItems.append(itemNoMore)
+//        let itemNoMore = Item(name: "No More Items!", valueInDollars: 0, serialNumber: nil)
+//        itemStore.allItems.append(itemNoMore)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -109,21 +109,22 @@ class ItemsViewController: UITableViewController {
         itemStore.moveItemAtIndex(from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row == (itemStore.allItems.count - 1) {
-            return UITableViewCellEditingStyle.none
-        } else {
-            return UITableViewCellEditingStyle.delete
-        }
-    }
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        if indexPath.row == (itemStore.allItems.count - 1) {
+//            return UITableViewCellEditingStyle.none
+//        } else {
+//            return UITableViewCellEditingStyle.delete
+//        }
+//    }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == (itemStore.allItems.count - 1) {
-            return false
-        } else {
-            return true
-        }
-    }
+//    // silver challenge
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        if indexPath.row == (itemStore.allItems.count - 1) {
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
     
     // bronze challenge - change delete button title
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -131,16 +132,16 @@ class ItemsViewController: UITableViewController {
     }
     
     // gold challenge - stops movement to final row by placing 1 before it!
-    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-
-        if sourceIndexPath.row < proposedDestinationIndexPath.row {
-            if proposedDestinationIndexPath.row == (itemStore.allItems.count-1) {
-                return IndexPath(row: (proposedDestinationIndexPath.row - 1), section: 0)
-            }
-        }
-        
-        return proposedDestinationIndexPath
-    }
+//    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//
+//        if sourceIndexPath.row < proposedDestinationIndexPath.row {
+//            if proposedDestinationIndexPath.row == (itemStore.allItems.count-1) {
+//                return IndexPath(row: (proposedDestinationIndexPath.row - 1), section: 0)
+//            }
+//        }
+//        
+//        return proposedDestinationIndexPath
+//    }
     
     func deleteItem(itemPosition: Int) {
         itemStore.allItems.remove(at: itemPosition)
