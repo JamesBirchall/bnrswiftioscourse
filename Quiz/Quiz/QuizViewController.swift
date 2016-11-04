@@ -6,6 +6,12 @@
 //  Copyright © 2016 James Birchall. All rights reserved.
 //
 
+/*
+ To Do: 
+ * Want to add this into Stack View but have a problem with Constraints on sides of the top label which is animated in.  Can we keep those but still manage stack view?
+ 
+ */
+
 import UIKit
 
 class QuizViewController: UIViewController {
