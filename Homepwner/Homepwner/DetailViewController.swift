@@ -35,6 +35,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var serialInputField: UITextField!
     @IBOutlet weak var valueInputField: UITextField!
     @IBOutlet weak var dateCreatedLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,4 +93,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             changeDateViewController.item = item
         }
     }
+    
+    
 }

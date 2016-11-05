@@ -10,7 +10,11 @@ import UIKit
 
 class ChangeDateViewController: UIViewController {
     
-    var item: Item!
+    var item: Item!{
+        didSet {
+            navigationItem.title = "Date Picker"
+        }
+    }
     
     @IBOutlet weak var itemDatePicker: UIDatePicker!
 
