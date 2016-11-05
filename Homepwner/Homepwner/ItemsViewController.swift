@@ -180,6 +180,5 @@ class ItemsViewController: UITableViewController {
         
         tableView.reloadData()
     }
-
 }
 

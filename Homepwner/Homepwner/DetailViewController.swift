@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
     
     var item: Item!
     
@@ -68,5 +68,11 @@ class DetailViewController: UIViewController {
         } else {
             item.valueInDollars = 0
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
 }
