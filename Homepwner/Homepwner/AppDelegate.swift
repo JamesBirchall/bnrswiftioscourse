@@ -18,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // init and share itemStore object with itemsViewController
         let itemStore = ItemStore()
-        let itemsViewController = window!.rootViewController as! ItemsViewController
+        //let itemsViewController = window!.rootViewController as! ItemsViewController
+        // Using UINavigationController now so need to reflect root
+        let navigationController = window?.rootViewController as! UINavigationController
+        let itemsViewController = navigationController.topViewController as! ItemsViewController
         itemsViewController.itemStore = itemStore
         
         return true
