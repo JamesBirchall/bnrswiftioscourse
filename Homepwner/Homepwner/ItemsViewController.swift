@@ -17,12 +17,13 @@ class ItemsViewController: UITableViewController {
         super.viewDidLoad()
         
         // get status bar height and use to set inset at top of screen
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = insets
-        tableView.scrollIndicatorInsets = insets
+        //let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        //let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
+        //tableView.contentInset = insets
+        //tableView.scrollIndicatorInsets = insets
         
-        tableView.rowHeight = 65
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 65
         
         // add a final row for No More Items
 //        let itemNoMore = Item(name: "No More Items!", valueInDollars: 0, serialNumber: nil)
@@ -75,17 +76,6 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-    @IBAction func toggleEditingMode(sender: UIButton) {
-        
-        if isEditing {
-            sender.setTitle("Edit", for: .normal)
-            setEditing(false, animated: true)
-        } else {
-            sender.setTitle("Done", for: .normal)
-            setEditing(true, animated: true)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         // delete routine
@@ -110,7 +100,8 @@ class ItemsViewController: UITableViewController {
                 if self.itemStore.allItems.count == 0 {
                     //                editButton.setTitle("Edit", for: .normal)
                     //                setEditing(false, animated: true)
-                    self.toggleEditingMode(sender: self.editButton)
+                    //self.toggleEditingMode(sender: self.editButton)
+                    self.isEditing = false
                 }
             })
             alertController.addAction(deleteAction)
@@ -179,6 +170,13 @@ class ItemsViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 }
 

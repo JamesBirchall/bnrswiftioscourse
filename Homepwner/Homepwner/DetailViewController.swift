@@ -10,7 +10,11 @@ import UIKit
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
     
-    var item: Item!
+    var item: Item! {
+        didSet {
+            navigationItem.title = item.name
+        }
+    }
     
     var numberFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -58,6 +62,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        // end editing if tapped back before clicking elsewhere
+        
         // save items on way out if valid else don't
         item.name = nameInputField.text ?? ""    // not valid return empty string
         item.serialNumber = serialInputField.text ?? ""
@@ -74,5 +80,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
+
+        // shows which of the 3 fields is firstResponder at this time of tap
+        if nameInputField.isFirstResponder {
+            print("Ending editing on nameInputField")
+        }
+        if valueInputField.isFirstResponder {
+            print("Ending editing on valueInputField")
+        }
+        if serialInputField.isFirstResponder {
+            print("Ending editing on serialInputField")
+        }
+        view.endEditing(true)   // convience method to dismiss keyboard without knowing which text field is currently first responder
     }
 }
