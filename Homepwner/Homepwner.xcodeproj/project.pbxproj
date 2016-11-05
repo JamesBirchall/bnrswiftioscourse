@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		458D362C1DCE0B8600E67B9C /* highlightedTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D362B1DCE0B8600E67B9C /* highlightedTextFields.swift */; };
+		458D362E1DCE0EC100E67B9C /* ChangeDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D362D1DCE0EC100E67B9C /* ChangeDateViewController.swift */; };
 		45A34B251DC51121004D6D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A34B241DC51121004D6D17 /* AppDelegate.swift */; };
 		45A34B271DC51121004D6D17 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A34B261DC51121004D6D17 /* ItemsViewController.swift */; };
 		45A34B2A1DC51121004D6D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A34B281DC51121004D6D17 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		458D362B1DCE0B8600E67B9C /* highlightedTextFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = highlightedTextFields.swift; sourceTree = "<group>"; };
+		458D362D1DCE0EC100E67B9C /* ChangeDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeDateViewController.swift; sourceTree = "<group>"; };
 		45A34B211DC51121004D6D17 /* Homepwner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homepwner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A34B241DC51121004D6D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A34B261DC51121004D6D17 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				45A34B361DC51131004D6D17 /* Autogen Files */,
 				45A34B261DC51121004D6D17 /* ItemsViewController.swift */,
+				458D362D1DCE0EC100E67B9C /* ChangeDateViewController.swift */,
 				45E33B581DC7F41A00902427 /* DetailViewController.swift */,
 				45E33B561DC7E2CE00902427 /* ItemCell.swift */,
 				45A34B281DC51121004D6D17 /* Main.storyboard */,
@@ -164,6 +167,7 @@
 				458D362C1DCE0B8600E67B9C /* highlightedTextFields.swift in Sources */,
 				45A34B381DC51429004D6D17 /* Item.swift in Sources */,
 				45A34B3A1DC522F2004D6D17 /* ItemStore.swift in Sources */,
+				458D362E1DCE0EC100E67B9C /* ChangeDateViewController.swift in Sources */,
 				45E33B591DC7F41A00902427 /* DetailViewController.swift in Sources */,
 				45A34B251DC51121004D6D17 /* AppDelegate.swift in Sources */,
 				45E33B571DC7E2CE00902427 /* ItemCell.swift in Sources */,

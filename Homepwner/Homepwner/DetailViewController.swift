@@ -35,17 +35,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var serialInputField: UITextField!
     @IBOutlet weak var valueInputField: UITextField!
     @IBOutlet weak var dateCreatedLabel: UILabel!
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -95,5 +84,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             print("Ending editing on serialInputField")
         }
         view.endEditing(true)   // convience method to dismiss keyboard without knowing which text field is currently first responder
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ChangeDate" {
+            let changeDateViewController = segue.destination as! ChangeDateViewController
+            changeDateViewController.item = item
+        }
     }
 }
