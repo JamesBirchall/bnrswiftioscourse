@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var item: Item! {
         didSet {
@@ -93,6 +93,33 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             changeDateViewController.item = item
         }
     }
+
+    @IBAction func takePicture(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        
+        // if device doesn't have camera use library
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.delegate = self // set delegate for Photo Picker to this class instance
+        
+        //imagePicker.allowsEditing = true
+        
+        // Place imagePicker on the screen
+        present(imagePicker, animated: true, completion: nil)
+    }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // delegate method from UIImagePickerControllerDelegate
+        // get picked image from dictionary
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage  // have to force cast into UIImage from Any?
+        
+        imageView.image = image // set imageView correctly to selected image
+        
+        dismiss(animated: true, completion: nil)
+    }
     
 }

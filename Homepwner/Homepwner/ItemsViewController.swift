@@ -22,7 +22,7 @@ class ItemsViewController: UITableViewController {
         //tableView.contentInset = insets
         //tableView.scrollIndicatorInsets = insets
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        //tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 65
         
         // add a final row for No More Items
