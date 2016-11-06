@@ -12,6 +12,7 @@ class ItemStore {
     
     var allItems = [Item]()
     
+    // MARK: - Add and Removes
     
     func createItem() -> Item {
         let newItem = Item(random: true)

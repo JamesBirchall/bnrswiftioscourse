@@ -39,6 +39,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
+    // MARK: - View Lifecycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -80,6 +82,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         return true
     }
     
+    // MARK: - Connected Actions
+    
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
 
         // shows which of the 3 fields is firstResponder at this time of tap
@@ -93,13 +97,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
             print("Ending editing on serialInputField")
         }
         view.endEditing(true)   // convience method to dismiss keyboard without knowing which text field is currently first responder
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ChangeDate" {
-            let changeDateViewController = segue.destination as! ChangeDateViewController
-            changeDateViewController.item = item
-        }
     }
 
     @IBAction func takePicture(_ sender: UIBarButtonItem) {
@@ -150,6 +147,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         }
     }
     
+    @IBAction func removeImage(_ sender: UIBarButtonItem) {
+        let key = item.itemKey
+        
+        if imageView.image != nil {
+            imageStore.deleteImageForKey(key: key)
+            imageView.image = nil   // shut down imageView
+        }
+    }
+    
+    // MARK - UIImagePickerControllerDelegate Methods
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // delegate method from UIImagePickerControllerDelegate
         // get picked image from dictionary
@@ -165,12 +173,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func removeImage(_ sender: UIBarButtonItem) {
-        let key = item.itemKey
-        
-        if imageView.image != nil {
-            imageStore.deleteImageForKey(key: key)
-            imageView.image = nil   // shut down imageView
+    // MARK - Segue Actions
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ChangeDate" {
+            let changeDateViewController = segue.destination as! ChangeDateViewController
+            changeDateViewController.item = item
         }
     }
 }

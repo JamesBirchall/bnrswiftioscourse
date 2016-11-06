@@ -15,6 +15,8 @@ class Item: NSObject {
     var dateCreated: Date
     let itemKey: String
     
+    // MARK: - Inits
+    
     init(name: String, valueInDollars: Int, serialNumber: String?) {
         self.name = name
         self.valueInDollars = valueInDollars
@@ -41,9 +43,6 @@ class Item: NSObject {
             let randomSerialNumber = NSUUID.init().uuidString.components(separatedBy: "-").first!
             
             self.init(name: randomName, valueInDollars: randomValue, serialNumber: randomSerialNumber)
-            
-            
-            
         } else {
             self.init(name: "", valueInDollars: 0, serialNumber: nil)
         }
