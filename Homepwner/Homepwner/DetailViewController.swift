@@ -104,35 +104,50 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
 
     @IBAction func takePicture(_ sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self // set delegate for Photo Picker to this class instance
         
         // Gold Challenge
 
         let crosshairImage = UIImage(named: "crosshairicon.png")
         let crosshairImageView = UIImageView(image: crosshairImage)
-        //crosshairImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        //crosshairImageView.center = imagePicker.view.center  // center in the picker view
-
-        
-        // if device doesn't have camera use library
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.sourceType = .camera
-            
-            crosshairImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)  // 100 by 100 image
-            crosshairImageView.center = (imagePicker.cameraOverlayView?.center)!
-            crosshairImageView.center.y = crosshairImageView.center.y - 25
-            imagePicker.cameraOverlayView = crosshairImageView
-        } else {
-            imagePicker.sourceType = .photoLibrary
-        }
-        
-        imagePicker.delegate = self // set delegate for Photo Picker to this class instance
         
         // bronze challenge
         imagePicker.allowsEditing = true
         
+        // show an options box for selecting library or camera
         
-        // Place imagePicker on the screen
-        present(imagePicker, animated: true, completion: nil)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            // let the user decids
+            let title = "Add an image?"
+            let message = "Select options for adding your image."
+            
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            
+            let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: {
+                (action) -> Void in
+                imagePicker.sourceType = .camera
+                crosshairImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)  // 100 by 100 image
+                crosshairImageView.center = (imagePicker.cameraOverlayView?.center)!
+                crosshairImageView.center.y = crosshairImageView.center.y - 25
+                imagePicker.cameraOverlayView = crosshairImageView
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+            alertController.addAction(cameraAction)
+            
+            // photo library option
+            let photoLibraryAction = UIAlertAction(title: "Photos", style: .default, handler: {
+                (action) -> Void in
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+            alertController.addAction(photoLibraryAction)
+            
+            present(alertController, animated: true, completion: nil)
+        } else {
+            imagePicker.sourceType = .photoLibrary
+            // Place imagePicker on the screen
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
