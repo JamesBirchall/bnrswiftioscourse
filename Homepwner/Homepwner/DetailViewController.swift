@@ -16,6 +16,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         }
     }
     
+    var imageStore: ImageStore!
+    
     var numberFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -47,6 +49,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         
         valueInputField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         dateCreatedLabel.text = dateFormatter.string(from: item.dateCreated)
+        
+        // set image correctly
+        let key = item.itemKey
+        if let imageToShow = imageStore.imageForKey(key: key) {
+            imageView.image = imageToShow
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,16 +105,31 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     @IBAction func takePicture(_ sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         
+        // Gold Challenge
+
+        let crosshairImage = UIImage(named: "crosshairicon.png")
+        let crosshairImageView = UIImageView(image: crosshairImage)
+        //crosshairImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        //crosshairImageView.center = imagePicker.view.center  // center in the picker view
+
+        
         // if device doesn't have camera use library
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.sourceType = .camera
+            
+            crosshairImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)  // 100 by 100 image
+            crosshairImageView.center = (imagePicker.cameraOverlayView?.center)!
+            crosshairImageView.center.y = crosshairImageView.center.y - 25
+            imagePicker.cameraOverlayView = crosshairImageView
         } else {
             imagePicker.sourceType = .photoLibrary
         }
         
         imagePicker.delegate = self // set delegate for Photo Picker to this class instance
         
-        //imagePicker.allowsEditing = true
+        // bronze challenge
+        imagePicker.allowsEditing = true
+        
         
         // Place imagePicker on the screen
         present(imagePicker, animated: true, completion: nil)
@@ -115,11 +138,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // delegate method from UIImagePickerControllerDelegate
         // get picked image from dictionary
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage  // have to force cast into UIImage from Any?
+        //let image = info[UIImagePickerControllerOriginalImage] as! UIImage  // have to force cast into UIImage from Any?
+        
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage  // have to force cast into UIImage from Any?
+        
+        imageStore.setImage(image: image, forKey: item.itemKey) // this overwrites any existing image
         
         imageView.image = image // set imageView correctly to selected image
+        
         
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func removeImage(_ sender: UIBarButtonItem) {
+        let key = item.itemKey
+        
+        if imageView.image != nil {
+            imageStore.deleteImageForKey(key: key)
+            imageView.image = nil   // shut down imageView
+        }
+    }
 }

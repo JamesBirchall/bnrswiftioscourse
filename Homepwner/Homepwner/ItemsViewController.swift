@@ -11,6 +11,8 @@ import UIKit
 class ItemsViewController: UITableViewController {
     
     var itemStore: ItemStore!
+    var imageStore: ImageStore!
+    
     @IBOutlet weak var editButton: UIButton!
     
     override func viewDidLoad() {
@@ -93,6 +95,10 @@ class ItemsViewController: UITableViewController {
                 (action) -> Void in
                 // remove model object at exact location
                 self.itemStore.allItems.remove(at: indexPath.row)
+                
+                // remove items image from image store
+                self.imageStore.deleteImageForKey(key: self.itemStore.allItems[indexPath.row].itemKey)
+                
                 // remove from tableview to keep in sync
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 
@@ -161,6 +167,7 @@ class ItemsViewController: UITableViewController {
                 let item = itemStore.allItems[row]
                 let detailViewController = segue.destination as! DetailViewController
                 detailViewController.item = item
+                detailViewController.imageStore = imageStore
             }
         }
     }
