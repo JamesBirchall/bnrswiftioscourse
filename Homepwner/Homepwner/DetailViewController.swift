@@ -130,7 +130,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
                 crosshairImageView.center = (imagePicker.cameraOverlayView?.center)!
                 crosshairImageView.center.y = crosshairImageView.center.y - 25
                 imagePicker.cameraOverlayView = crosshairImageView
-                self.present(imagePicker, animated: true, completion: nil)
+                self.present(imagePicker, animated: true, completion: nil)  // show the actual imagePicker
             })
             alertController.addAction(cameraAction)
             
@@ -138,7 +138,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
             let photoLibraryAction = UIAlertAction(title: "Photos", style: .default, handler: {
                 (action) -> Void in
                 imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true, completion: nil)
+                self.present(imagePicker, animated: true, completion: nil)   // show the actual imagePicker
             })
             alertController.addAction(photoLibraryAction)
             
