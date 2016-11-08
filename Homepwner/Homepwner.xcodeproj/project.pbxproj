@@ -49,6 +49,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4534CF471DD2363200B60ED5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				45E0698E1DCFAC820038E5C3 /* ImageStore.swift */,
+				45A34B371DC51429004D6D17 /* Item.swift */,
+				45A34B391DC522F2004D6D17 /* ItemStore.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4534CF481DD2363C00B60ED5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				45A34B261DC51121004D6D17 /* ItemsViewController.swift */,
+				458D362D1DCE0EC100E67B9C /* ChangeDateViewController.swift */,
+				45E33B581DC7F41A00902427 /* DetailViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4534CF491DD2364800B60ED5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				45E33B561DC7E2CE00902427 /* ItemCell.swift */,
+				45A34B281DC51121004D6D17 /* Main.storyboard */,
+				458D362B1DCE0B8600E67B9C /* highlightedTextFields.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		45A34B181DC51121004D6D17 = {
 			isa = PBXGroup;
 			children = (
@@ -69,15 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				45A34B361DC51131004D6D17 /* Autogen Files */,
-				45A34B261DC51121004D6D17 /* ItemsViewController.swift */,
-				458D362D1DCE0EC100E67B9C /* ChangeDateViewController.swift */,
-				45E33B581DC7F41A00902427 /* DetailViewController.swift */,
-				45E0698E1DCFAC820038E5C3 /* ImageStore.swift */,
-				45E33B561DC7E2CE00902427 /* ItemCell.swift */,
-				45A34B281DC51121004D6D17 /* Main.storyboard */,
-				458D362B1DCE0B8600E67B9C /* highlightedTextFields.swift */,
-				45A34B371DC51429004D6D17 /* Item.swift */,
-				45A34B391DC522F2004D6D17 /* ItemStore.swift */,
+				4534CF481DD2363C00B60ED5 /* Controllers */,
+				4534CF471DD2363200B60ED5 /* Models */,
+				4534CF491DD2364800B60ED5 /* Views */,
 				45A34B2B1DC51121004D6D17 /* Assets.xcassets */,
 			);
 			path = Homepwner;

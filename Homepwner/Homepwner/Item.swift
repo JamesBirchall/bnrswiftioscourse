@@ -48,6 +48,9 @@ class Item: NSObject, NSCoding {
         }
     }
     
+    // MARK: - Encode/Decode protocol methods for NSCoding
+    
+    // tells us how each data item can be encoded
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(valueInDollars, forKey: "value")
@@ -56,9 +59,10 @@ class Item: NSObject, NSCoding {
         aCoder.encode(itemKey, forKey: "itemKey")
     }
     
+    // tells us how to decode each data item from archive
     required init?(coder aDecoder: NSCoder) {
         name = aDecoder.decodeObject(forKey: "name") as! String
-        valueInDollars = aDecoder.decodeObject(forKey: "value") as! Int
+        valueInDollars = aDecoder.decodeInteger(forKey: "value")
         serialNumber = aDecoder.decodeObject(forKey: "serial") as! String?
         dateCreated = aDecoder.decodeObject(forKey: "date") as! Date
         itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String

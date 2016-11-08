@@ -12,6 +12,14 @@ class ItemStore {
     
     var allItems = [Item]()
     
+    // MARK - Inits
+    
+    init() {
+        if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Item] {
+            allItems += archivedItems
+        }
+    }
+    
     // Where we can pickup existing store from URL
     let itemArchiveURL: URL = {
         // get an array of documentDirectories
