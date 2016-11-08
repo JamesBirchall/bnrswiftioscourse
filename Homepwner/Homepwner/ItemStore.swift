@@ -12,6 +12,18 @@ class ItemStore {
     
     var allItems = [Item]()
     
+    // Where we can pickup existing store from URL
+    let itemArchiveURL: URL = {
+        // get an array of documentDirectories
+        let documentDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        let documentDirectory = documentDirectories.first!
+        
+        let finalURL: URL = documentDirectory.appendingPathComponent("items.archive")
+        
+        return finalURL
+    }() // must have (), this is a closure used to return value of URL hardcoded to items.archive path
+    
     // MARK: - Add and Removes
     
     func createItem() -> Item {
@@ -31,6 +43,13 @@ class ItemStore {
         let movedItem = allItems[from]
         allItems.remove(at: from)
         allItems.insert(movedItem, at: to)
+    }
+    
+    func saveChanges() -> Bool {
+        
+        print("Saving items to \(itemArchiveURL.path).")
+        
+        return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path)
     }
 
     // used before we had add functionality
