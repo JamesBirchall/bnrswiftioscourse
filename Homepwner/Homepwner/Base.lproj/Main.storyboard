@@ -188,11 +188,6 @@
                                         <rect key="frame" x="224" y="0.0" width="216" height="196"/>
                                     </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="776-iW-Djm" firstAttribute="top" secondItem="ACE-bI-nky" secondAttribute="top" id="3jm-9B-R8x"/>
-                                    <constraint firstItem="776-iW-Djm" firstAttribute="leading" secondItem="ACE-bI-nky" secondAttribute="leading" id="eje-vw-o38"/>
-                                    <constraint firstAttribute="bottom" secondItem="776-iW-Djm" secondAttribute="bottom" id="uEw-Uq-wrz"/>
-                                </constraints>
                                 <variation key="heightClass=compact" axis="horizontal"/>
                             </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVo-1x-6PZ">
