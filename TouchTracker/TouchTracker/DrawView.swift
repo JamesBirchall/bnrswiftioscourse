@@ -13,6 +13,26 @@ class DrawView: UIView {
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
     
+    // MARK: - @IBInspectables
+    
+    @IBInspectable var finishedLineColour: UIColor = .black {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable var currentLineColour: UIColor = .red {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable var lineThickness: CGFloat = 10 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     // MARK: - Inits
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,7 +45,7 @@ class DrawView: UIView {
     
     override func draw(_ rect: CGRect) {
         // Draw finished lines in black
-        UIColor.black.setStroke()
+        finishedLineColour.setStroke()
         
         for line in finishedLines {
             strokeLine(line: line)
@@ -33,7 +53,7 @@ class DrawView: UIView {
         
         for (_,line) in currentLines {
             // make curent drawing line in red
-            UIColor.red.setStroke()
+            currentLineColour.setStroke()
             strokeLine(line: line)
         }
     }
@@ -114,7 +134,7 @@ class DrawView: UIView {
     
     func strokeLine(line: Line) {
         let path = UIBezierPath()
-        path.lineWidth = 10
+        path.lineWidth = lineThickness
         path.lineCapStyle = .round
         
         // drawing routines
