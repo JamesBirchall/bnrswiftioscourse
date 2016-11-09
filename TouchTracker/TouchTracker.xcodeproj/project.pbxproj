@@ -14,6 +14,7 @@
 		459B84FC1DD3B6010038B6DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459B84FA1DD3B6010038B6DB /* LaunchScreen.storyboard */; };
 		459B85051DD3B62E0038B6DB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B85041DD3B62E0038B6DB /* Line.swift */; };
 		459B85071DD3B6AF0038B6DB /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B85061DD3B6AF0038B6DB /* DrawView.swift */; };
+		459B85091DD3D4C90038B6DB /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B85081DD3D4C90038B6DB /* Circle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		459B84FD1DD3B6010038B6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459B85041DD3B62E0038B6DB /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		459B85061DD3B6AF0038B6DB /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		459B85081DD3D4C90038B6DB /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				459B85031DD3B6110038B6DB /* Autogen */,
 				459B85041DD3B62E0038B6DB /* Line.swift */,
 				459B85061DD3B6AF0038B6DB /* DrawView.swift */,
+				459B85081DD3D4C90038B6DB /* Circle.swift */,
 				459B84F31DD3B6010038B6DB /* ViewController.swift */,
 				459B84F51DD3B6010038B6DB /* Main.storyboard */,
 				459B84F81DD3B6010038B6DB /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				459B85091DD3D4C90038B6DB /* Circle.swift in Sources */,
 				459B85051DD3B62E0038B6DB /* Line.swift in Sources */,
 				459B84F41DD3B6010038B6DB /* ViewController.swift in Sources */,
 				459B85071DD3B6AF0038B6DB /* DrawView.swift in Sources */,
@@ -320,6 +324,7 @@
 				459B85021DD3B6010038B6DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

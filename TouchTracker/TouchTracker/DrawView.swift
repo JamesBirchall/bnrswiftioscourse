@@ -12,6 +12,8 @@ class DrawView: UIView {
     
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
+    var finishedCircles = [Circle]()
+    var points = [CGPoint]()
     
     // MARK: - @IBInspectables
     
@@ -76,7 +78,7 @@ class DrawView: UIView {
                 }
             }
             
-            print("Final Colour Values: \(redColour), \(greenColour), \(blueColour)")
+            //print("Final Colour Values: \(redColour), \(greenColour), \(blueColour)")
             
             let angleColour = UIColor(colorLiteralRed: redColour, green: greenColour, blue: blueColour, alpha: 1.0)
             
@@ -93,6 +95,11 @@ class DrawView: UIView {
             strokeLine(line: line)
             
             //print("Line Angle = \(line.getAngleInDegrees())")
+        }
+        
+        for circle in finishedCircles {
+            currentLineColour.setStroke()
+            strokeCircle(circle: circle)
         }
     }
     
@@ -151,8 +158,32 @@ class DrawView: UIView {
             if var line = currentLines[key] {
                 line.end = touch.location(in: self)
                 
-                finishedLines.append(line)
-                currentLines.removeValue(forKey: key)
+                // we want to draw circles when a point has not moved
+                // so we work out the hypotenuse and if 0, its a point, when we have 2, its a circle!
+                // using C^2 = A^2 + B^2 to find line distance
+                
+//                let a = (line.end.x - line.begin.x) * (line.end.x - line.begin.x)
+//                let b = (line.end.y - line.begin.y) * (line.end.y - line.begin.y)
+//                let c = sqrt(a + b)
+                
+                let hyp = hypot(line.end.x - line.begin.x, line.end.y - line.begin.y)
+                
+                if hyp == 0 {
+                    points.append(line.begin)   // because we only have one position!
+                }
+                
+                if points.count == 2 {
+                    let circle = Circle(center: points[0], ringPoint: points[1])    // take centre/ringPoint
+                    
+                    finishedCircles.append(circle)
+                    // reset points to capture new ones
+                    points.removeAll()
+                }
+                
+                if hyp != 0 {
+                    finishedLines.append(line)
+                    currentLines.removeValue(forKey: key)
+                }
             }
         }
         
@@ -178,6 +209,16 @@ class DrawView: UIView {
         // drawing routines
         path.move(to: line.begin)
         path.addLine(to: line.end)
+        path.stroke()
+    }
+    
+    func strokeCircle(circle: Circle) {
+        let path = UIBezierPath()
+        path.lineWidth = lineThickness
+        path.lineCapStyle = .round
+        
+        let radius = hypot(circle.ringPoint.x - circle.center.x, circle.ringPoint.y - circle.center.y)
+        path.addArc(withCenter: circle.center, radius: radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
         path.stroke()
     }
 }
