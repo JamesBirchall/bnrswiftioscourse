@@ -104,6 +104,9 @@ class DrawView: UIView {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         print(#function)
         
+        currentLines.removeAll()    // get rid of any temp in progress lines
+        
+        setNeedsDisplay()
     }
     
     
