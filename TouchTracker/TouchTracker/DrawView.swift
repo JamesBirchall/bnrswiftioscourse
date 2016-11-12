@@ -154,17 +154,19 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
 //        let location = touch.location(in: self)
 //        currentLine = Line(begin: location, end: location)  // inititally set to start point
 
-        for touch in touches {
-            let location = touch.location(in: self)
+        if selectLineIndex == nil {
+            for touch in touches {
+                let location = touch.location(in: self)
+                
+                let newLine = Line(begin: location, end: location)
+                
+                // create pointer reference and store line values
+                let key = NSValue(nonretainedObject: touch)
+                currentLines[key] = newLine
+            }
             
-            let newLine = Line(begin: location, end: location)
-            
-            // create pointer reference and store line values
-            let key = NSValue(nonretainedObject: touch)
-            currentLines[key] = newLine
+            setNeedsDisplay()   // marks view as needing redraw
         }
-        
-        setNeedsDisplay()   // marks view as needing redraw
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -174,12 +176,14 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
 //        let location = touch.location(in: self)
 //        currentLine?.end = location
 
-        for touch in touches {
-            let key = NSValue(nonretainedObject: touch) // pull out right reference line
-            currentLines[key]?.end = touch.location(in: self)   // update end point
+        if selectLineIndex == nil {
+            for touch in touches {
+                let key = NSValue(nonretainedObject: touch) // pull out right reference line
+                currentLines[key]?.end = touch.location(in: self)   // update end point
+            }
+            
+            setNeedsDisplay()
         }
-        
-        setNeedsDisplay()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -194,42 +198,44 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
 //        }
 //        
 //        currentLine = nil   // make sure to reset currentLine
-
-        for touch in touches {
-            let key = NSValue(nonretainedObject: touch)
-            if var line = currentLines[key] {
-                line.end = touch.location(in: self)
-                
-                // we want to draw circles when a point has not moved
-                // so we work out the hypotenuse and if 0, its a point, when we have 2, its a circle!
-                // using C^2 = A^2 + B^2 to find line distance
-                
-//                let a = (line.end.x - line.begin.x) * (line.end.x - line.begin.x)
-//                let b = (line.end.y - line.begin.y) * (line.end.y - line.begin.y)
-//                let c = sqrt(a + b)
-                
-                let hyp = hypot(line.end.x - line.begin.x, line.end.y - line.begin.y)
-                
-                if hyp == 0 {
-                    points.append(line.begin)   // because we only have one position!
-                }
-                
-                if points.count == 2 {
-                    let circle = Circle(center: points[0], ringPoint: points[1])    // take centre/ringPoint
+        
+        if selectLineIndex == nil {
+            for touch in touches {
+                let key = NSValue(nonretainedObject: touch)
+                if var line = currentLines[key] {
+                    line.end = touch.location(in: self)
                     
-                    finishedCircles.append(circle)
-                    // reset points to capture new ones
-                    points.removeAll()
-                }
-                
-                if hyp != 0 {
-                    finishedLines.append(line)
-                    currentLines.removeValue(forKey: key)
+                    // we want to draw circles when a point has not moved
+                    // so we work out the hypotenuse and if 0, its a point, when we have 2, its a circle!
+                    // using C^2 = A^2 + B^2 to find line distance
+                    
+                    //                let a = (line.end.x - line.begin.x) * (line.end.x - line.begin.x)
+                    //                let b = (line.end.y - line.begin.y) * (line.end.y - line.begin.y)
+                    //                let c = sqrt(a + b)
+                    
+                    let hyp = hypot(line.end.x - line.begin.x, line.end.y - line.begin.y)
+                    
+                    if hyp == 0 {
+                        points.append(line.begin)   // because we only have one position!
+                    }
+                    
+                    if points.count == 2 {
+                        let circle = Circle(center: points[0], ringPoint: points[1])    // take centre/ringPoint
+                        
+                        finishedCircles.append(circle)
+                        // reset points to capture new ones
+                        points.removeAll()
+                    }
+                    
+                    if hyp != 0 {
+                        finishedLines.append(line)
+                        currentLines.removeValue(forKey: key)
+                    }
                 }
             }
+            
+            setNeedsDisplay()
         }
-        
-        setNeedsDisplay()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -287,7 +293,6 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     
     func tap(gestureRecogniser: UIGestureRecognizer) {
         print(#function)
-        
         
         if let selection = indexOfLineAtPoint(point: gestureRecogniser.location(in: self)) {
             selectLineIndex = selection
@@ -373,6 +378,8 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
                 // reset translation to keep finger in sync
                 gestureRecogniser.setTranslation(.zero, in: self)
                 
+                moveMenu(point: gestureRecogniser.location(in: self))
+                
                 setNeedsDisplay()
             }
         } else {
@@ -388,5 +395,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         selectLineIndex = nil
         
         setNeedsDisplay()
+    }
+    
+    func moveMenu(point: CGPoint) {
+        let menu = UIMenuController.shared
+        
+        if menu.isMenuVisible {
+            menu.setTargetRect(CGRect(origin: point, size: CGSize.init(width: 2, height: 2)), in: self)
+        }
     }
 }
