@@ -158,7 +158,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             for touch in touches {
                 let location = touch.location(in: self)
                 
-                let newLine = Line(begin: location, end: location)
+                let newLine = Line(begin: location, end: location, velocity: nil)
                 
                 // create pointer reference and store line values
                 let key = NSValue(nonretainedObject: touch)
@@ -257,7 +257,20 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     func strokeLine(line: Line) {
         print(#function)
         let path = UIBezierPath()
-        path.lineWidth = lineThickness
+        //path.lineWidth = lineThickness
+        if line.velocity != nil {
+            path.lineWidth = lineThickness
+            //print("Line Speed: \(line.getSpeed())")
+            if line.getSpeed() > 100 {
+                path.lineWidth = 10
+            } else if line.getSpeed() > 200 {
+                path.lineWidth = 20
+            } else {
+                path.lineWidth = lineThickness
+            }
+        } else {
+            path.lineWidth = lineThickness
+        }
         path.lineCapStyle = .round
         
         // drawing routines
@@ -377,6 +390,8 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
                 
                 // reset translation to keep finger in sync
                 gestureRecogniser.setTranslation(.zero, in: self)
+                
+                finishedLines[index].velocity = gestureRecogniser.velocity(in: self)
                 
                 moveMenu(point: gestureRecogniser.location(in: self))
                 

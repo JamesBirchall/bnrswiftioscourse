@@ -11,6 +11,7 @@ import UIKit
 struct Line {
     var begin = CGPoint.zero
     var end = CGPoint.zero
+    var velocity: CGPoint?
     
     // should we have an Angle property?
     // we have begin x and y value
@@ -25,5 +26,9 @@ struct Line {
         }
         
         return degree
+    }
+    
+    func getSpeed() -> CGFloat {
+        return hypot((velocity?.x)!, (velocity?.y)!) 
     }
 }
