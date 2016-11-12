@@ -8,7 +8,8 @@
 
 import UIKit
 
-class DrawView: UIView {
+// need gesture delegate to turn on function around being able to handle multiple gestures at same time
+class DrawView: UIView, UIGestureRecognizerDelegate {
     
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
@@ -22,6 +23,8 @@ class DrawView: UIView {
             }
         }
     }
+    
+    var moveRecogniser: UIPanGestureRecognizer!
     
     // MARK: - @IBInspectables
     
@@ -59,6 +62,14 @@ class DrawView: UIView {
         tapRecogniser.delaysTouchesBegan = true
         tapRecogniser.require(toFail: doubleTapRecogniser)
         addGestureRecognizer(tapRecogniser)
+        
+        let longPressRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(longPress(gestureRecogniser:)))
+        addGestureRecognizer(longPressRecogniser)
+        
+        moveRecogniser = UIPanGestureRecognizer(target: self, action: #selector(moveLine(gestureRecogniser:)))
+        moveRecogniser.cancelsTouchesInView = false
+        moveRecogniser.delegate = self
+        addGestureRecognizer(moveRecogniser)
     }
     
     // MARK: - UIView Overrides
@@ -227,6 +238,11 @@ class DrawView: UIView {
         setNeedsDisplay()
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+    }
+    
     
     // MARK: - Custom Stroke Functions
     
@@ -291,6 +307,25 @@ class DrawView: UIView {
         }
     }
     
+    func longPress(gestureRecogniser: UITapGestureRecognizer) {
+        print("Long Press detected.")
+        
+        let point = gestureRecogniser.location(in: self)
+        
+        if gestureRecogniser.state == .began {
+            
+            selectLineIndex = indexOfLineAtPoint(point: point)
+            
+            if selectLineIndex != nil {
+                currentLines.removeAll(keepingCapacity: false)
+            }
+        } else if gestureRecogniser.state == .ended {
+            selectLineIndex = nil
+        }
+        
+        setNeedsDisplay()
+    }
+    
     // MARK: - Selection Routines
     
     func indexOfLineAtPoint(point: CGPoint) -> Int? {
@@ -314,6 +349,26 @@ class DrawView: UIView {
         }
         
         return nil
+    }
+    
+    func moveLine(gestureRecogniser: UIPanGestureRecognizer) {
+        print("Pan detected.")
+        
+        if let index = selectLineIndex {
+            if gestureRecogniser.state == .changed {
+                let translation = gestureRecogniser.translation(in: self)
+                
+                finishedLines[index].begin.x += translation.x
+                finishedLines[index].begin.y += translation.y
+                finishedLines[index].end.x += translation.x
+                finishedLines[index].end.y += translation.y
+                
+                // reset translation to keep finger in sync
+                gestureRecogniser.setTranslation(.zero, in: self)
+                
+                setNeedsDisplay()
+            }
+        }
     }
     
     // MARK: - Menu Handlers

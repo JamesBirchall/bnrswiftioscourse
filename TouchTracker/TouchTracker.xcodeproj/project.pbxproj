@@ -61,11 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				459B85031DD3B6110038B6DB /* Autogen */,
-				459B85041DD3B62E0038B6DB /* Line.swift */,
-				459B85061DD3B6AF0038B6DB /* DrawView.swift */,
-				459B85081DD3D4C90038B6DB /* Circle.swift */,
-				459B84F31DD3B6010038B6DB /* ViewController.swift */,
-				459B84F51DD3B6010038B6DB /* Main.storyboard */,
+				45FF18F41DD77CBE002AC96A /* Model */,
+				45FF18F61DD77CD0002AC96A /* Views */,
+				45FF18F51DD77CC6002AC96A /* Controllers */,
 				459B84F81DD3B6010038B6DB /* Assets.xcassets */,
 			);
 			path = TouchTracker;
@@ -79,6 +77,32 @@
 				459B84FD1DD3B6010038B6DB /* Info.plist */,
 			);
 			name = Autogen;
+			sourceTree = "<group>";
+		};
+		45FF18F41DD77CBE002AC96A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				459B85041DD3B62E0038B6DB /* Line.swift */,
+				459B85081DD3D4C90038B6DB /* Circle.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		45FF18F51DD77CC6002AC96A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				459B84F31DD3B6010038B6DB /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		45FF18F61DD77CD0002AC96A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				459B84F51DD3B6010038B6DB /* Main.storyboard */,
+				459B85061DD3B6AF0038B6DB /* DrawView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
