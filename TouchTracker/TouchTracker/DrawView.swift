@@ -14,6 +14,14 @@ class DrawView: UIView {
     var finishedLines = [Line]()
     var finishedCircles = [Circle]()
     var points = [CGPoint]()
+    var selectLineIndex: Int? {
+        didSet {
+            if self.selectLineIndex == nil {
+                let menu = UIMenuController.shared
+                menu.isMenuVisible = false
+            }
+        }
+    }
     
     // MARK: - @IBInspectables
     
@@ -41,6 +49,16 @@ class DrawView: UIView {
         super.init(coder: aDecoder)
         
         self.isMultipleTouchEnabled = true
+        
+        let doubleTapRecogniser = UITapGestureRecognizer(target: self, action: #selector(doubleTap(gestureRecogniser:)))
+        doubleTapRecogniser.numberOfTapsRequired = 2
+        doubleTapRecogniser.delaysTouchesBegan = true
+        addGestureRecognizer(doubleTapRecogniser)
+        
+        let tapRecogniser = UITapGestureRecognizer(target: self, action: #selector(tap(gestureRecogniser:)))
+        tapRecogniser.delaysTouchesBegan = true
+        tapRecogniser.require(toFail: doubleTapRecogniser)
+        addGestureRecognizer(tapRecogniser)
     }
     
     // MARK: - UIView Overrides
@@ -101,6 +119,17 @@ class DrawView: UIView {
             currentLineColour.setStroke()
             strokeCircle(circle: circle)
         }
+        
+        // draw selected different colour
+        if let index = selectLineIndex {
+            UIColor.green.setStroke()
+            let selectedLine = finishedLines[index]
+            strokeLine(line: selectedLine)
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     // MARK: - Touch Handler Overrides
@@ -220,5 +249,79 @@ class DrawView: UIView {
         let radius = hypot(circle.ringPoint.x - circle.center.x, circle.ringPoint.y - circle.center.y)
         path.addArc(withCenter: circle.center, radius: radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
         path.stroke()
+    }
+    
+    // MARK: - Gesture actions
+    
+    func doubleTap(gestureRecogniser: UIGestureRecognizer) {
+        print("Recognised double tap.")
+        
+        currentLines.removeAll()
+        finishedLines.removeAll()
+        finishedCircles.removeAll()
+        points.removeAll()
+        selectLineIndex = nil
+        
+        setNeedsDisplay()   // ask for redraw
+    }
+    
+    func tap(gestureRecogniser: UIGestureRecognizer) {
+        print("Tap detected.")
+        
+        if let selection = indexOfLineAtPoint(point: gestureRecogniser.location(in: self)) {
+            selectLineIndex = selection
+            setNeedsDisplay()
+        }
+        
+        let menu = UIMenuController.shared
+        
+        if selectLineIndex != nil {
+            
+            let point = gestureRecogniser.location(in: self)
+            
+            becomeFirstResponder()
+            
+            let deleteItem = UIMenuItem(title: "Delete", action: #selector(deleteSelectedLine))
+            
+            menu.menuItems = [deleteItem]
+            menu.setTargetRect(CGRect.init(origin: point, size: CGSize.init(width: 2, height: 2)), in: self)
+            menu.isMenuVisible = true
+        } else {
+            menu.isMenuVisible = false
+        }
+    }
+    
+    // MARK: - Selection Routines
+    
+    func indexOfLineAtPoint(point: CGPoint) -> Int? {
+        
+        // .enumerated is a function which returns both index and item
+        for (index, line) in finishedLines.enumerated() {
+            let begin = line.begin
+            let end = line.end
+            
+            // Check a few points on the line, 0.05 increments
+            for t: CGFloat in stride(from: 0, through: 1.0, by: 0.05) {
+                //print("t value is \(t)")
+                
+                let x = begin.x + ((end.x - begin.x) * t)
+                let y = begin.y + ((end.y - begin.y) * t)
+                
+                if hypot(x - point.x, y - point.y) < 15 {
+                    return index
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Menu Handlers
+    
+    func deleteSelectedLine() {
+        finishedLines.remove(at: selectLineIndex!)
+        selectLineIndex = nil
+        
+        setNeedsDisplay()
     }
 }
