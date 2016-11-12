@@ -49,6 +49,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Inits
     
     required init?(coder aDecoder: NSCoder) {
+        //print(#function)
         super.init(coder: aDecoder)
         
         self.isMultipleTouchEnabled = true
@@ -75,6 +76,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - UIView Overrides
     
     override func draw(_ rect: CGRect) {
+        //print(#function)
 //        // Draw finished lines in black
 //        finishedLineColour.setStroke()
         
@@ -146,7 +148,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Touch Handler Overrides
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
+        //print(#function)
         
 //        let touch = touches.first!  // has to be at least one touch for function!
 //        let location = touch.location(in: self)
@@ -166,7 +168,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
+        //print(#function)
         
 //        let touch = touches.first!
 //        let location = touch.location(in: self)
@@ -181,7 +183,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
+        //print(#function)
         
 //        if var line = currentLine {
 //            let touch = touches.first!
@@ -231,7 +233,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
+        //print(#function)
         
         currentLines.removeAll()    // get rid of any temp in progress lines
         
@@ -247,6 +249,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Custom Stroke Functions
     
     func strokeLine(line: Line) {
+        print(#function)
         let path = UIBezierPath()
         path.lineWidth = lineThickness
         path.lineCapStyle = .round
@@ -258,6 +261,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     func strokeCircle(circle: Circle) {
+        print(#function)
         let path = UIBezierPath()
         path.lineWidth = lineThickness
         path.lineCapStyle = .round
@@ -270,7 +274,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Gesture actions
     
     func doubleTap(gestureRecogniser: UIGestureRecognizer) {
-        print("Recognised double tap.")
+        //print(#function)
         
         currentLines.removeAll()
         finishedLines.removeAll()
@@ -282,15 +286,16 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     func tap(gestureRecogniser: UIGestureRecognizer) {
-        print("Tap detected.")
+        print(#function)
+        
         
         if let selection = indexOfLineAtPoint(point: gestureRecogniser.location(in: self)) {
             selectLineIndex = selection
-            setNeedsDisplay()
+        } else {
+            selectLineIndex = nil
         }
         
         let menu = UIMenuController.shared
-        
         if selectLineIndex != nil {
             
             let point = gestureRecogniser.location(in: self)
@@ -305,10 +310,12 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         } else {
             menu.isMenuVisible = false
         }
+        
+        setNeedsDisplay()
     }
     
     func longPress(gestureRecogniser: UITapGestureRecognizer) {
-        print("Long Press detected.")
+        print(#function)
         
         let point = gestureRecogniser.location(in: self)
         
@@ -329,7 +336,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Selection Routines
     
     func indexOfLineAtPoint(point: CGPoint) -> Int? {
-        
+        //print(#function)
         // .enumerated is a function which returns both index and item
         for (index, line) in finishedLines.enumerated() {
             let begin = line.begin
@@ -352,7 +359,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     }
     
     func moveLine(gestureRecogniser: UIPanGestureRecognizer) {
-        print("Pan detected.")
+        print(#function)
         
         if let index = selectLineIndex {
             if gestureRecogniser.state == .changed {
@@ -368,12 +375,15 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
                 
                 setNeedsDisplay()
             }
+        } else {
+            print("Nothing Selected.")
         }
     }
     
     // MARK: - Menu Handlers
     
     func deleteSelectedLine() {
+        //print(#function)
         finishedLines.remove(at: selectLineIndex!)
         selectLineIndex = nil
         
