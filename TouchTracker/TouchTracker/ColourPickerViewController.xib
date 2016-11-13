@@ -28,53 +28,71 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-j2-Jrc">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-rF-eWl">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="745" text="Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-rF-eWl">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GYx-mt-3kr">
+                                <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" verticalHuggingPriority="255" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GYx-mt-3kr">
                                     <rect key="frame" x="148" y="0.0" width="154" height="31"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="150" id="VnA-EA-NHu"/>
+                                    </constraints>
                                     <connections>
                                         <action selector="sliderChanged" destination="-1" eventType="valueChanged" id="KYg-rm-Unc"/>
                                     </connections>
                                 </slider>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="GYx-mt-3kr" secondAttribute="trailing" id="dFF-rk-yVL"/>
+                            </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Gxu-Hc-Em6">
                             <rect key="frame" x="0.0" y="166" width="300" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Green" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hg8-cN-kda">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="745" text="Green" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hg8-cN-kda">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="A2W-KO-ui7">
+                                <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" verticalHuggingPriority="255" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="A2W-KO-ui7">
                                     <rect key="frame" x="148" y="0.0" width="154" height="31"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="150" id="n2t-SD-OOB"/>
+                                    </constraints>
                                     <connections>
                                         <action selector="sliderChanged" destination="-1" eventType="valueChanged" id="i4d-Ce-zV8"/>
                                     </connections>
                                 </slider>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="A2W-KO-ui7" secondAttribute="trailing" id="lKa-pW-Xkh"/>
+                            </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eth-8i-Ihl">
                             <rect key="frame" x="0.0" y="332" width="300" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-Q2-c8o">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="745" text="Blue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-Q2-c8o">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AyS-zE-3W8">
+                                <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" verticalHuggingPriority="255" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AyS-zE-3W8">
                                     <rect key="frame" x="148" y="0.0" width="154" height="31"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="150" id="fbu-xV-P62"/>
+                                    </constraints>
                                     <connections>
                                         <action selector="sliderChanged" destination="-1" eventType="valueChanged" id="Icq-hV-gwx"/>
                                     </connections>
                                 </slider>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="AyS-zE-3W8" secondAttribute="trailing" id="waI-Jo-3mn"/>
+                            </constraints>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9W-BI-hrA">
                             <rect key="frame" x="131.5" y="498" width="37" height="30"/>
