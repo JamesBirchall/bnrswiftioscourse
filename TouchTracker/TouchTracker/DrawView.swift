@@ -24,6 +24,8 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    var currentLineSetColour: UIColor?
+    
     var moveRecogniser: UIPanGestureRecognizer!
     
     // MARK: - @IBInspectables
@@ -82,38 +84,43 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         
         for line in finishedLines {
             
-            // silver challenge - we need to change the line colour based on its angle
-            // lets divide 360.0 by 3, then increase Red, then green then blue by 1 point
-            // 12, 24, 36 - 120 degrees to go from 0-1
-            let angle = line.getAngleInDegrees()
-            var redColour: Float = 0
-            var greenColour: Float = 0
-            var blueColour: Float = 0
             
-            // if angle is in first quadrent, red increases
-            // if in second quadrent, green increases, red decreases
-            // if in third blue increases, green decreases
-            
-            if angle < 120.0 {
-                redColour = Float((1/120.0) * angle)
-            } else {
-                if angle < 240.0 {
-                    greenColour = Float((1/240) * angle)
-                    
-                    redColour = 1 - greenColour
+            if line.colour == nil {
+                // silver challenge - we need to change the line colour based on its angle
+                // lets divide 360.0 by 3, then increase Red, then green then blue by 1 point
+                // 12, 24, 36 - 120 degrees to go from 0-1
+                let angle = line.getAngleInDegrees()
+                var redColour: Float = 0
+                var greenColour: Float = 0
+                var blueColour: Float = 0
+                
+                // if angle is in first quadrent, red increases
+                // if in second quadrent, green increases, red decreases
+                // if in third blue increases, green decreases
+                
+                if angle < 120.0 {
+                    redColour = Float((1/120.0) * angle)
                 } else {
-                    if angle < 360.0 {
-                        blueColour = Float((1/360.0) * angle)
-                        greenColour = 1 - blueColour
+                    if angle < 240.0 {
+                        greenColour = Float((1/240) * angle)
+                        
+                        redColour = 1 - greenColour
+                    } else {
+                        if angle < 360.0 {
+                            blueColour = Float((1/360.0) * angle)
+                            greenColour = 1 - blueColour
+                        }
                     }
                 }
+                
+                //print("Final Colour Values: \(redColour), \(greenColour), \(blueColour)")
+                
+                let angleColour = UIColor(colorLiteralRed: redColour, green: greenColour, blue: blueColour, alpha: 1.0)
+                
+                angleColour.setStroke()
+            } else {
+                line.colour?.setStroke()
             }
-            
-            //print("Final Colour Values: \(redColour), \(greenColour), \(blueColour)")
-            
-            let angleColour = UIColor(colorLiteralRed: redColour, green: greenColour, blue: blueColour, alpha: 1.0)
-            
-            angleColour.setStroke()
             
             strokeLine(line: line)
         }
@@ -158,7 +165,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             for touch in touches {
                 let location = touch.location(in: self)
                 
-                let newLine = Line(begin: location, end: location, velocity: nil)
+                var newLine: Line
+                
+                if currentLineSetColour != nil {
+                    newLine = Line(begin: location, end: location, velocity: nil, colour: currentLineSetColour)
+                } else {
+                    newLine = Line(begin: location, end: location, velocity: nil, colour: nil)
+                }
                 
                 // create pointer reference and store line values
                 let key = NSValue(nonretainedObject: touch)

@@ -12,6 +12,7 @@ struct Line {
     var begin = CGPoint.zero
     var end = CGPoint.zero
     var velocity: CGPoint?
+    var colour: UIColor?
     
     // should we have an Angle property?
     // we have begin x and y value

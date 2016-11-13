@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4529FD8E1DD888450032E3B0 /* ColourPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4529FD8C1DD888450032E3B0 /* ColourPickerViewController.swift */; };
+		4529FD8F1DD888450032E3B0 /* ColourPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4529FD8D1DD888450032E3B0 /* ColourPickerViewController.xib */; };
 		459B84F21DD3B6010038B6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B84F11DD3B6010038B6DB /* AppDelegate.swift */; };
 		459B84F41DD3B6010038B6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B84F31DD3B6010038B6DB /* ViewController.swift */; };
 		459B84F71DD3B6010038B6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459B84F51DD3B6010038B6DB /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4529FD8C1DD888450032E3B0 /* ColourPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColourPickerViewController.swift; sourceTree = "<group>"; };
+		4529FD8D1DD888450032E3B0 /* ColourPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColourPickerViewController.xib; sourceTree = "<group>"; };
 		459B84EE1DD3B6010038B6DB /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		459B84F11DD3B6010038B6DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		459B84F31DD3B6010038B6DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				459B84F31DD3B6010038B6DB /* ViewController.swift */,
+				4529FD8C1DD888450032E3B0 /* ColourPickerViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -100,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				459B84F51DD3B6010038B6DB /* Main.storyboard */,
+				4529FD8D1DD888450032E3B0 /* ColourPickerViewController.xib */,
 				459B85061DD3B6AF0038B6DB /* DrawView.swift */,
 			);
 			name = Views;
@@ -165,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4529FD8F1DD888450032E3B0 /* ColourPickerViewController.xib in Resources */,
 				459B84FC1DD3B6010038B6DB /* LaunchScreen.storyboard in Resources */,
 				459B84F91DD3B6010038B6DB /* Assets.xcassets in Resources */,
 				459B84F71DD3B6010038B6DB /* Main.storyboard in Resources */,
@@ -180,6 +187,7 @@
 			files = (
 				459B85091DD3D4C90038B6DB /* Circle.swift in Sources */,
 				459B85051DD3B62E0038B6DB /* Line.swift in Sources */,
+				4529FD8E1DD888450032E3B0 /* ColourPickerViewController.swift in Sources */,
 				459B84F41DD3B6010038B6DB /* ViewController.swift in Sources */,
 				459B85071DD3B6AF0038B6DB /* DrawView.swift in Sources */,
 				459B84F21DD3B6010038B6DB /* AppDelegate.swift in Sources */,
