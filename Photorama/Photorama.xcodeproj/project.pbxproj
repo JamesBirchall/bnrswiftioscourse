@@ -13,6 +13,7 @@
 		45D92F151DDA6C3D0045BDC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45D92F131DDA6C3D0045BDC4 /* LaunchScreen.storyboard */; };
 		45D92F1D1DDA6C630045BDC4 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D92F1C1DDA6C630045BDC4 /* PhotosViewController.swift */; };
 		45D92F231DDA6D520045BDC4 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D92F221DDA6D520045BDC4 /* FlickrAPI.swift */; };
+		45D92F251DDA745F0045BDC4 /* apikey in Resources */ = {isa = PBXBuildFile; fileRef = 45D92F241DDA745F0045BDC4 /* apikey */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		45D92F161DDA6C3D0045BDC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45D92F1C1DDA6C630045BDC4 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		45D92F221DDA6D520045BDC4 /* FlickrAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
+		45D92F241DDA745F0045BDC4 /* apikey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apikey; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				45D92F201DDA6CC10045BDC4 /* Views */,
 				45D92F211DDA6CCA0045BDC4 /* Models */,
 				45D92F111DDA6C3D0045BDC4 /* Assets.xcassets */,
+				45D92F241DDA745F0045BDC4 /* apikey */,
 			);
 			path = Photorama;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45D92F151DDA6C3D0045BDC4 /* LaunchScreen.storyboard in Resources */,
+				45D92F251DDA745F0045BDC4 /* apikey in Resources */,
 				45D92F121DDA6C3D0045BDC4 /* Assets.xcassets in Resources */,
 				45D92F101DDA6C3D0045BDC4 /* Main.storyboard in Resources */,
 			);

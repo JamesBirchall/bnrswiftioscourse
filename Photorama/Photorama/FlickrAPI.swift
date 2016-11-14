@@ -22,13 +22,32 @@ struct FlickrAPI {
     
     // limit static value type variable to this file only
     private static let baseURLString = "https://api.flickr.com/services/rest/"
-    private static let APIKey = ""
+    private static let APIKey = {
+        () -> String in
+        // get API key from file which needs to contain API key for user
+        if let filePath = Bundle.main.path(forResource: "apikey", ofType: nil) {
+            return filePath
+        } else {
+            print("No APIKey detected - check bundle for apikey file.")
+            return ""
+        }
+    }
     
     private static func flickrURL(_ method: method, parameters: [String: String]?) -> URL {
         
         var components = URLComponents(string: baseURLString)
         
         var queryItems = [URLQueryItem]()
+        
+        let baseParams = ["method": method.rawValue,
+                          "format":"json",
+                          "nojsoncallback":"1",
+                          "api_key":APIKey] as [String : Any]
+        
+        for (key, value) in baseParams {
+            let item = URLQueryItem(name: key, value: value as? String)
+            queryItems.append(item)
+        }
         
         if let additionalParams = parameters {
             for (key, value) in additionalParams {
