@@ -18,7 +18,62 @@ class PhotoStore {
         return urlSession
     }()
     
-    func fetchRecentPhotos() {
+//    func fetchRecentPhotos() {
+//        let url = FlickrAPI.recentPhotosURL()
+//        let request = URLRequest(url: url)
+//        
+//        print("URL Attempted: \(request)")
+//        print("Request number this run: \(PhotoStore.requestCounter)")
+//        
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data: Data?, response: URLResponse?, error: Error?) -> Void in
+//            
+//            PhotoStore.requestCounter += 1  // increment from call made
+//            
+//            if let jsonData = data {
+//                if let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) {
+//                    print(jsonString)
+//                }
+//            } else if let requestError = error {
+//                print("Error fetching recent photos: \(requestError)")
+//            } else {
+//                print("Unexpected error occured.")
+//            }
+//        })
+//        task.resume()   // begin task
+//    }
+    
+//    func fetchRecentPhotos() {
+//        let url = FlickrAPI.recentPhotosURL()
+//        let request = URLRequest(url: url)
+//        
+//        print("URL Attempted: \(request)")
+//        print("Request number this run: \(PhotoStore.requestCounter)")
+//        
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data: Data?, response: URLResponse?, error: Error?) -> Void in
+//            
+//            PhotoStore.requestCounter += 1  // increment from call made
+//            
+//            
+//            if let jsonData = data {
+//                // unwraps into a JSON Object if formats correct
+//                do {
+//                    let jsonObject: AnyObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as AnyObject
+//                    print("\(jsonObject)")
+//                } catch {
+//                    print("Error creating JSON object: \(error)")
+//                }
+//            } else if let requestError = error {
+//                print("Error fetching recent photos: \(requestError)")
+//            } else {
+//                print("Unexpected error occured.")
+//            }
+//        })
+//        task.resume()   // begin task
+//    }
+  
+    func fetchRecentPhotos(completion: @escaping (PhotoResult) -> Void) {
         let url = FlickrAPI.recentPhotosURL()
         let request = URLRequest(url: url)
         
@@ -30,16 +85,15 @@ class PhotoStore {
             
             PhotoStore.requestCounter += 1  // increment from call made
             
-            if let jsonData = data {
-                if let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                    print(jsonString)
-                }
-            } else if let requestError = error {
-                print("Error fetching recent photos: \(requestError)")
-            } else {
-                print("Unexpected error occured.")
-            }
+            let result = self.processRecentPhotosRequest(data, error: error)
+            completion(result)
         })
         task.resume()   // begin task
+    }
+    
+    func processRecentPhotosRequest(_ data: Data?, error: Error?) -> PhotoResult {
+        guard let jsonData = data else { return .failure(error!) }
+        
+        return FlickrAPI.photosFromJSONData(data: jsonData)
     }
 }
