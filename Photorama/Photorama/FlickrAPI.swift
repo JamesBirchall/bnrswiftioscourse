@@ -28,7 +28,7 @@ struct FlickrAPI {
         if let filePath = Bundle.main.path(forResource: "apikey", ofType: nil) {
             return filePath
         } else {
-            print("No APIKey detected - check bundle for apikey file.")
+            print("No APIKey detected - check bundle for 'apikey' file.")
             return ""
         }
     }
