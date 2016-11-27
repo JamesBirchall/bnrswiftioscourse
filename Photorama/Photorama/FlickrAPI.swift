@@ -21,17 +21,27 @@ enum method: String {
 struct FlickrAPI {
     
     // limit static value type variable to this file only
-    private static let baseURLString = "https://api.flickr.com/services/rest/"
+    private static let baseURLString = "https://api.flickr.com/services/rest"
     private static let APIKey = {
         () -> String in
         // get API key from file which needs to contain API key for user
         if let filePath = Bundle.main.path(forResource: "apikey", ofType: nil) {
-            return filePath
+            //return filePath
+            
+            do {
+                if let apiKey = try? String(contentsOfFile: filePath) {
+                    return apiKey
+                }
+            } catch {
+                print("Error getting API File key: \(error)")
+            }
+            print("Problem opening file")
+            return ""
         } else {
             print("No APIKey detected - check bundle for 'apikey' file.")
             return ""
         }
-    }
+    }()
     
     private static func flickrURL(_ method: method, parameters: [String: String]?) -> URL {
         
@@ -42,7 +52,7 @@ struct FlickrAPI {
         let baseParams = ["method": method.rawValue,
                           "format":"json",
                           "nojsoncallback":"1",
-                          "api_key":APIKey] as [String : Any]
+                          "api_key":FlickrAPI.APIKey] as [String : Any]
         
         for (key, value) in baseParams {
             let item = URLQueryItem(name: key, value: value as? String)
