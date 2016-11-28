@@ -6,9 +6,18 @@
 //  Copyright © 2016 James Birchall. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class PhotoStore {
+    
+    enum ImageResult {
+        case success(UIImage)
+        case failure(Error)
+    }
+    
+    enum PhotoError: Error {
+        case ImageCreationError
+    }
     
     static var requestCounter = 0   // used to record requests made to flickr
     
@@ -77,12 +86,13 @@ class PhotoStore {
         let url = FlickrAPI.recentPhotosURL()
         let request = URLRequest(url: url)
         
-        print("URL Attempted: \(request)")
+//        print("URL Attempted: \(request)")
         
         let task = session.dataTask(with: request, completionHandler: {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
             
             PhotoStore.requestCounter += 1  // increment from call made
+            print("FlickR API Calls made this apps lifetime: \(PhotoStore.requestCounter)")
             
             let result = self.processRecentPhotosRequest(data, error: error)
             completion(result)
@@ -94,5 +104,30 @@ class PhotoStore {
         guard let jsonData = data else { return .failure(error!) }
         
         return FlickrAPI.photosFromJSONData(data: jsonData)
+    }
+    
+    func fetchImageForPhoto(photo: Photo, completion: @escaping (ImageResult) -> Void) {
+        let photoURL = photo.remoteURL
+        let request = URLRequest(url: photoURL)
+        
+        let task = session.dataTask(with: request, completionHandler: {(data: Data?, response: URLResponse?, error: Error?) -> Void in
+            let result = self.processImageRequest(data: data, error: error)
+            
+            // special use of
+            if case let .success(image) = result {
+                photo.image = image
+            }
+            
+            completion(result)
+        })
+        task.resume()
+    }
+    
+    func processImageRequest(data: Data?, error: Error?) -> ImageResult {
+        
+        guard let imageData = data else { return .failure(error!) }
+        guard let image = UIImage.init(data: imageData) else { return .failure(PhotoError.ImageCreationError) }
+        
+        return .success(image)
     }
 }

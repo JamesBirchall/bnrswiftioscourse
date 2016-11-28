@@ -111,19 +111,17 @@ struct FlickrAPI {
                 }
             }
             
-            for photo in finalPhotos {
-                print(photo.remoteURL)
-            }
-            print("Final Photos All Printed, count is \(finalPhotos.count)")
+//            for photo in finalPhotos {
+//                print(photo.remoteURL)
+//            }
+//            print("Final Photos All Printed, count is \(finalPhotos.count)")
             
             if finalPhotos.count == 0 && photosArray.count > 0 {
-                // likely wasn't able to parse format
+                // likely wasn't able to parse format or data was missing necessary parameters e.g. URL
                 return .failure(FlickrError.InvalidJSONData)
             }
-            
-            // delete these bits!!
-            let arrayPhoto: [Photo] = [Photo.init(title: "?", remoteURL: FlickrAPI.recentPhotosURL(), photoID: "?", dateTaken: Date())]
-            return .success(arrayPhoto)
+
+            return .success(finalPhotos)
         } catch {
             return .failure(error)
         }

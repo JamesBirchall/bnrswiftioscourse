@@ -6,13 +6,14 @@
 //  Copyright © 2016 James Birchall. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Photo: CustomStringConvertible {
     let title: String
     let remoteURL: URL
     let photoID: String
     let dateTaken: Date
+    var image: UIImage?  // needs UIKit to make use of, may not have ben downloaded so optional type
     
     init(title: String, remoteURL: URL, photoID: String, dateTaken: Date) {
         self.title = title
