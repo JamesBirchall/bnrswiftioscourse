@@ -113,6 +113,12 @@ class PhotoStore {
         let task = session.dataTask(with: request, completionHandler: {(data: Data?, response: URLResponse?, error: Error?) -> Void in
             let result = self.processImageRequest(data: data, error: error)
             
+            // chapter 19 bronze challenge
+            if let responseHeaderAndFields = response as? HTTPURLResponse {
+                print("Image HTTP Response Status Code: \(responseHeaderAndFields.statusCode) which is in english: \(HTTPURLResponse.localizedString(forStatusCode: responseHeaderAndFields.statusCode))")
+                print("Image HTTP Response Header Fields: \(responseHeaderAndFields.allHeaderFields)")
+            }
+            
             // special use of
             if case let .success(image) = result {
                 photo.image = image
