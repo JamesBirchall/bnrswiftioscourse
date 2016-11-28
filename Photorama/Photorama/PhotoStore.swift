@@ -78,7 +78,6 @@ class PhotoStore {
         let request = URLRequest(url: url)
         
         print("URL Attempted: \(request)")
-        print("Request number this run: \(PhotoStore.requestCounter)")
         
         let task = session.dataTask(with: request, completionHandler: {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in

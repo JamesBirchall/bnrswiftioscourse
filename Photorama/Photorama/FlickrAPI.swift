@@ -90,19 +90,31 @@ struct FlickrAPI {
         do {
             let jsonObject: AnyObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
             
-            guard
-                let jsonDictionary = jsonObject as? [String:AnyObject],
-                let photos = jsonDictionary["photos"] as? [String:AnyObject],
-                let photosArray = photos["photo"] as? [[String:AnyObject]] else {
-                return .failure(FlickrError.InvalidJSONData)
-            }
+            //print(jsonObject)
+            //print(".........Break of JSON Object.........")
+            guard let jsonDictionary = jsonObject as? [String:AnyObject] else { return .failure(FlickrError.InvalidJSONData) }
+//            print(jsonDictionary)
+//            print(".........Break of JSON Dictionary.........")
+            guard let photos = jsonDictionary["photos"] as? [String:AnyObject] else { return .failure(FlickrError.InvalidJSONData) }
+//            print(photos)
+//            print(".........Break of Photos Dictionary.........")
+            guard let photosArray = photos["photo"] as? [[String:AnyObject]] else { return .failure(FlickrError.InvalidJSONData) }
+//            print(photosArray)
+//            print(".........Break of Photo Array.........")
             
             var finalPhotos = [Photo]() // Photo array we need to add to later
             for photoJSON in photosArray {
                 if let photo = photosFromJSONObject(json: photoJSON) {
+//                    print(photo)
+//                    print("...Photo Data Printed...")
                     finalPhotos.append(photo)
                 }
             }
+            
+            for photo in finalPhotos {
+                print(photo.remoteURL)
+            }
+            print("Final Photos All Printed, count is \(finalPhotos.count)")
             
             if finalPhotos.count == 0 && photosArray.count > 0 {
                 // likely wasn't able to parse format
