@@ -23,6 +23,17 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         collectionView.dataSource = photoDataSource // where we will get photo's objects from
         collectionView.delegate = self
         
+        // swipe gestures for GOLD Challenge
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(pageUp))
+        swipeUp.direction = .up
+        collectionView.addGestureRecognizer(swipeUp)
+
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(pageDown))
+        swipeDown.direction = .down
+        collectionView.addGestureRecognizer(swipeDown)
+        
+        
         store.fetchRecentPhotos(completion: {
             (photosResult) -> Void in
 //            switch photosResult {
@@ -72,6 +83,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
                 self.collectionView.reloadSections(IndexSet(integer: 0))
             }
         })
+        
+        
     }
 
 //    @IBAction func nextPhotoButton(_ sender: UIBarButtonItem) {
@@ -172,5 +185,77 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         if navigationController?.topViewController == self {
             updateCellWithSize(size: size)
         }
+    }
+    
+    // MARK - Gold Challenge - Scroll to items and Animations
+    
+    func pageUp() {
+        //collectionView.isScrollEnabled = true
+        print("Page Up")
+        
+        let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
+        
+        var lastPath = IndexPath(row: 0, section: 0)    // starting from nothing
+        // find the last shown item
+        for index in indexPaths {
+            if index.row > lastPath.row {
+                lastPath = index
+            }
+        }
+        
+        // set last path to one item beyond its view
+        lastPath = IndexPath(row: lastPath.row+1, section: lastPath.section)
+        
+        print("Last Path Number: \(lastPath.row), Photo Count = \(photoDataSource.photos.count - 1)")
+        
+        if lastPath.row < (photoDataSource.photos.count - 1) {
+            print("Page Up started...")
+            collectionView.scrollToItem(at: lastPath, at: .bottom, animated: false)
+            UIView.transition(with: collectionView, duration: 0.5, options: [.transitionCurlUp, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil)
+            print("Page Up concluded...")
+        }
+        
+        //collectionView.reloadData()
+        //collectionView.isScrollEnabled = false
+        collectionView.reloadData()
+    }
+    
+    func pageDown() {
+        //collectionView.isScrollEnabled = true
+        
+        print("Page Down")
+        
+        let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
+        
+        var firstPath = IndexPath(row: photoDataSource.photos.count, section: 0)
+        
+        print("indexPaths count \(indexPaths.count)")
+        for index in indexPaths {
+            print("Index.row = \(index.row)")
+            if index.row < firstPath.row {
+                firstPath = index
+            }
+        }
+        
+        // set last path to one item beyond its view
+        
+        print("First Path Number: \(firstPath.row)")
+        
+        if firstPath.row == 0 {
+            firstPath.row = 1
+        }
+        
+        if firstPath.row > 0 {
+            print("Page Down Started...")
+            firstPath = IndexPath(row: firstPath.row-1, section: firstPath.section)
+            
+            collectionView.scrollToItem(at: firstPath, at: .top, animated: false)
+            UIView.transition(with: collectionView, duration: 0.5, options: [.transitionCurlDown, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil)
+            print("Page Down concluded...")
+        }
+        
+        //collectionView.reloadData()
+        //collectionView.isScrollEnabled = false
+        collectionView.reloadData()
     }
 }
