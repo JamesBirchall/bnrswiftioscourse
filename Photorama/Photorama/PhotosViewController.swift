@@ -15,6 +15,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
     var store: PhotoStore!
     //var tempPhotoStore: [Photo]?
     let photoDataSource = PhotoDataSource()
+    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +133,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         })
     }
     
-    // MARK - Segue
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let showPhotoSegueIdenfitier = "ShowPhoto"
@@ -146,6 +147,30 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
                 destinationVC.photo = photo
                 destinationVC.store = store
             }
+        }
+    }
+    
+    // MARK - Silver Challenge - 4 across images always in potrait and landscape 
+    
+    func updateCellWithSize(size: CGSize) {
+        print("Update Cell for new window Size \(size)")
+        let cellSize = CGSize(width: (size.width / 4), height: (size.width / 4))
+        collectionViewFlowLayout.itemSize = cellSize
+        collectionViewFlowLayout.minimumInteritemSpacing = 0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateCellWithSize(size: CGSize(width: view.bounds.width, height: view.bounds.height))
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // if this view is showing resize
+        if navigationController?.topViewController == self {
+            updateCellWithSize(size: size)
         }
     }
 }
