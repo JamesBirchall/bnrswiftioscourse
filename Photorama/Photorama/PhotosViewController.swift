@@ -8,74 +8,127 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UICollectionViewDelegate {
     
-    @IBOutlet var imageView: UIImageView!   // we unwrap explicitly because it will be connected by time it is to be used by this classes methods - if crashes then we need to know
+    @IBOutlet var collectionView: UICollectionView!
+    //@IBOutlet var imageView: UIImageView!   // we unwrap explicitly because it will be connected by time it is to be used by this classes methods - if crashes then we need to know
     var store: PhotoStore!
-    var tempPhotoStore: [Photo]?
+    //var tempPhotoStore: [Photo]?
+    let photoDataSource = PhotoDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.dataSource = photoDataSource // where we will get photo's objects from
+        collectionView.delegate = self
+        
         store.fetchRecentPhotos(completion: {
             (photosResult) -> Void in
-            switch photosResult {
-            case let .success(photos):
-                print("Successfully found \(photos.count) recent photos")
-//                for photo in photos {
-//                    print("\(photo)")
+//            switch photosResult {
+//            case let .success(photos):
+//                print("Successfully found \(photos.count) recent photos")
+////                for photo in photos {
+////                    print("\(photo)")
+////                }
+//                
+////                self.tempPhotoStore = photos
+////                print(self.tempPhotoStore?.count ?? "Nothing found in Temp Photo Store")
+//                
+//                // lets go capture the Photo images and store them in the Photo Objects
+//                if let first = photos.first {
+//                    // lets display the first one on the screen in full view!
+//                    
+//                    print("fetching first photo: \(first.photoID) with date: \(first.dateTaken))")
+//                    
+//                    self.store.fetchImageForPhoto(photo: first, completion: {
+//                        (imageResult: PhotoStore.ImageResult) -> Void in
+//                        switch imageResult {
+//                        case let .success(image):
+//                            
+//                            // lets do this operation on the main thread as its UI related
+//                            OperationQueue.main.addOperation { self.imageView.image = image }
+//                        case let .failure(error):
+//                            print("Error downloading image: \(error)")
+//                        }
+//                    })
 //                }
-                
-                self.tempPhotoStore = photos
-                print(self.tempPhotoStore?.count ?? "Nothing found in Temp Photo Store")
-                
-                // lets go capture the Photo images and store them in the Photo Objects
-                if let first = photos.first {
-                    // lets display the first one on the screen in full view!
-                    
-                    print("fetching first photo: \(first.photoID) with date: \(first.dateTaken))")
-                    
-                    self.store.fetchImageForPhoto(photo: first, completion: {
-                        (imageResult: PhotoStore.ImageResult) -> Void in
-                        switch imageResult {
-                        case let .success(image):
-                            
-                            // lets do this operation on the main thread as its UI related
-                            OperationQueue.main.addOperation { self.imageView.image = image }
-                        case let .failure(error):
-                            print("Error downloading image: \(error)")
-                        }
-                    })
+//            case let .failure(error):
+//                print("Error fetching recent photos: \(error)")
+//            }
+            
+            
+            OperationQueue.main.addOperation {
+                switch photosResult {
+                case .success(let photos):
+                    print("Succesfully found \(photos.count) recent photos.")
+                    self.photoDataSource.photos = photos
+                case .failure(let error):
+                    self.photoDataSource.photos.removeAll()
+                    print("Error fetching recent photos: \(error)")
                 }
-            case let .failure(error):
-                print("Error fetching recent photos: \(error)")
+                
+                // self.collectionView.reloadData()    // this vs reload sections?
+                self.collectionView.reloadSections(IndexSet(integer: 0))
             }
         })
     }
 
-    @IBAction func nextPhotoButton(_ sender: UIBarButtonItem) {
-        
-        // remove first in index then show first again!
-        if tempPhotoStore != nil {
-            tempPhotoStore?.remove(at: 0)
-        } else {
-            print("temp photo store is nil...")
-        }
-        
-//        if (tempPhotoStore?.count)! > 0 {
-            if let nextPhoto = tempPhotoStore?.first {
-                print("fetching next photo: \(nextPhoto.photoID) with date: \(nextPhoto.dateTaken))")
-                self.store.fetchImageForPhoto(photo: nextPhoto, completion: {
-                    (imageResult: PhotoStore.ImageResult) -> Void in
-                    switch imageResult {
-                    case let .success(image):
-                        // lets do this operation on the main thread as its UI related
-                        OperationQueue.main.addOperation { self.imageView.image = image }
-                    case let .failure(error):
-                        print("Error downloading image: \(error)")
-                    }
-                })
+//    @IBAction func nextPhotoButton(_ sender: UIBarButtonItem) {
+//        
+//        // remove first in index then show first again!
+//        if tempPhotoStore != nil {
+//            if (tempPhotoStore!.count > 0) {
+//                tempPhotoStore?.remove(at: 0)
+//            } else {
+//                print("temp photo store is nil...")
 //            }
+//        }
+//        
+////        if (tempPhotoStore?.count)! > 0 {
+//            if let nextPhoto = tempPhotoStore?.first {
+//                print("fetching next photo: \(nextPhoto.photoID) with date: \(nextPhoto.dateTaken))")
+//                self.store.fetchImageForPhoto(photo: nextPhoto, completion: {
+//                    (imageResult: PhotoStore.ImageResult) -> Void in
+//                    switch imageResult {
+//                    case let .success(image):
+//                        // lets do this operation on the main thread as its UI related
+//                        OperationQueue.main.addOperation { self.imageView.image = image }
+//                    case let .failure(error):
+//                        print("Error downloading image: \(error)")
+//                    }
+//                })
+////            }
+//            
+//        }
+//    }
+    
+    
+    // MARK - UICollectionViewDelegate Methods
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // this cell is about to be displayed in collectionView
+        
+        let photo = photoDataSource.photos[indexPath.row]
+        
+        // download image data - asynch
+        
+        store.fetchImageForPhoto(photo: photo, completion: {
+            (result) -> Void in
             
-        }
+            OperationQueue.main.addOperation {
+                // index path may have changed between request started and finished, so find
+                // the most recent indexPath
+                
+                if let photoIndex = self.photoDataSource.photos.index(of: photo) {
+                let photoIndexPath = IndexPath(row: photoIndex, section: 0)
+                    // only update cell if still visible
+                    if let cell = self.collectionView.cellForItem(at: photoIndexPath) as? PhotoCollectionViewCell {
+                        cell.updateWithImage(image: photo.image)
+                    }
+                } else {
+                    print("Could not get photo index")
+                }
+            }
+        })
     }
 }

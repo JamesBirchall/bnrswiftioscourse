@@ -26,3 +26,9 @@ class Photo: CustomStringConvertible {
         return "\(title) | \(photoID) | \(dateTaken) | \(remoteURL)"
     }
 }
+
+extension Photo: Equatable {
+    static func ==(lhs: Photo, rhs: Photo) -> Bool {
+        return lhs.photoID == rhs.photoID
+    }
+}

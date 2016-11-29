@@ -86,7 +86,7 @@ class PhotoStore {
         let url = FlickrAPI.recentPhotosURL()
         let request = URLRequest(url: url)
         
-//        print("URL Attempted: \(request)")
+        print("URL Attempted: \(request)")
         
         let task = session.dataTask(with: request, completionHandler: {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -107,8 +107,17 @@ class PhotoStore {
     }
     
     func fetchImageForPhoto(photo: Photo, completion: @escaping (ImageResult) -> Void) {
+        
+        // if image has already been downloaded then simply re-use and dont re-download
+        if let image = photo.image {
+            completion(.success(image))
+            return
+        }
+        
         let photoURL = photo.remoteURL
         let request = URLRequest(url: photoURL)
+        
+        print(request)
         
         let task = session.dataTask(with: request, completionHandler: {(data: Data?, response: URLResponse?, error: Error?) -> Void in
             let result = self.processImageRequest(data: data, error: error)
