@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -74,6 +76,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="5Z8-OE-ypk" id="XZj-Gr-K5s"/>
                                             <outlet property="spinner" destination="fhm-NL-xzj" id="kyd-lh-0Cq"/>
+                                            <segue destination="rWR-wI-oX0" kind="show" identifier="ShowPhoto" id="5Zr-oP-BVh"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -94,6 +97,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Photo Info View Controller-->
+        <scene sceneID="oBi-f8-DmD">
+            <objects>
+                <viewController id="rWR-wI-oX0" customClass="PhotoInfoViewController" customModule="Photorama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Opl-EA-WCB"/>
+                        <viewControllerLayoutGuide type="bottom" id="rVu-XE-gxE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cft-CK-nX3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cXa-gm-dUw">
+                                <rect key="frame" x="16" y="72" width="343" height="343"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cXa-gm-dUw" secondAttribute="height" multiplier="1:1" id="30U-XJ-1FK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo URL" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Jua-bx-GpK">
+                                <rect key="frame" x="36" y="423" width="303" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Taken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Jhn-qa-E1w">
+                                <rect key="frame" x="36" y="452" width="303" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jhn-qa-E1w" firstAttribute="leading" secondItem="Cft-CK-nX3" secondAttribute="leadingMargin" constant="20" id="0Vu-VB-LKD"/>
+                            <constraint firstItem="Jhn-qa-E1w" firstAttribute="top" secondItem="Jua-bx-GpK" secondAttribute="bottom" constant="8" id="6CY-mS-Ewm"/>
+                            <constraint firstItem="Jua-bx-GpK" firstAttribute="top" secondItem="cXa-gm-dUw" secondAttribute="bottom" constant="8" id="ABV-4P-w7V"/>
+                            <constraint firstItem="Jua-bx-GpK" firstAttribute="centerX" secondItem="Cft-CK-nX3" secondAttribute="centerX" id="Ac1-Qj-O0q"/>
+                            <constraint firstItem="cXa-gm-dUw" firstAttribute="top" secondItem="Opl-EA-WCB" secondAttribute="bottom" constant="8" id="CaS-lR-tWc"/>
+                            <constraint firstItem="Jhn-qa-E1w" firstAttribute="centerX" secondItem="Cft-CK-nX3" secondAttribute="centerX" id="goY-f8-lzt"/>
+                            <constraint firstItem="cXa-gm-dUw" firstAttribute="trailing" secondItem="Cft-CK-nX3" secondAttribute="trailingMargin" id="hUk-up-nSP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jhn-qa-E1w" secondAttribute="trailing" constant="20" id="sQ8-NR-WzG"/>
+                            <constraint firstItem="Jua-bx-GpK" firstAttribute="leading" secondItem="Cft-CK-nX3" secondAttribute="leadingMargin" constant="20" id="uLs-N8-lcV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jua-bx-GpK" secondAttribute="trailing" constant="20" id="yqC-2d-Ym2"/>
+                            <constraint firstItem="cXa-gm-dUw" firstAttribute="leading" secondItem="Cft-CK-nX3" secondAttribute="leadingMargin" id="zPH-te-Y8J"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateTaken" destination="Jhn-qa-E1w" id="vDy-jf-B5h"/>
+                        <outlet property="imageView" destination="cXa-gm-dUw" id="lFQ-Ah-FWK"/>
+                        <outlet property="photoURL" destination="Jua-bx-GpK" id="E3A-cy-pAC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jy6-JY-9g1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="949.60000000000002" y="89.505247376311857"/>
         </scene>
     </scenes>
 </document>
