@@ -36,39 +36,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         store.fetchRecentPhotos(completion: {
             (photosResult) -> Void in
-//            switch photosResult {
-//            case let .success(photos):
-//                print("Successfully found \(photos.count) recent photos")
-////                for photo in photos {
-////                    print("\(photo)")
-////                }
-//                
-////                self.tempPhotoStore = photos
-////                print(self.tempPhotoStore?.count ?? "Nothing found in Temp Photo Store")
-//                
-//                // lets go capture the Photo images and store them in the Photo Objects
-//                if let first = photos.first {
-//                    // lets display the first one on the screen in full view!
-//                    
-//                    print("fetching first photo: \(first.photoID) with date: \(first.dateTaken))")
-//                    
-//                    self.store.fetchImageForPhoto(photo: first, completion: {
-//                        (imageResult: PhotoStore.ImageResult) -> Void in
-//                        switch imageResult {
-//                        case let .success(image):
-//                            
-//                            // lets do this operation on the main thread as its UI related
-//                            OperationQueue.main.addOperation { self.imageView.image = image }
-//                        case let .failure(error):
-//                            print("Error downloading image: \(error)")
-//                        }
-//                    })
-//                }
-//            case let .failure(error):
-//                print("Error fetching recent photos: \(error)")
-//            }
-            
-            
             OperationQueue.main.addOperation {
                 switch photosResult {
                 case .success(let photos):
@@ -86,36 +53,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         
     }
-
-//    @IBAction func nextPhotoButton(_ sender: UIBarButtonItem) {
-//        
-//        // remove first in index then show first again!
-//        if tempPhotoStore != nil {
-//            if (tempPhotoStore!.count > 0) {
-//                tempPhotoStore?.remove(at: 0)
-//            } else {
-//                print("temp photo store is nil...")
-//            }
-//        }
-//        
-////        if (tempPhotoStore?.count)! > 0 {
-//            if let nextPhoto = tempPhotoStore?.first {
-//                print("fetching next photo: \(nextPhoto.photoID) with date: \(nextPhoto.dateTaken))")
-//                self.store.fetchImageForPhoto(photo: nextPhoto, completion: {
-//                    (imageResult: PhotoStore.ImageResult) -> Void in
-//                    switch imageResult {
-//                    case let .success(image):
-//                        // lets do this operation on the main thread as its UI related
-//                        OperationQueue.main.addOperation { self.imageView.image = image }
-//                    case let .failure(error):
-//                        print("Error downloading image: \(error)")
-//                    }
-//                })
-////            }
-//            
-//        }
-//    }
-    
     
     // MARK - UICollectionViewDelegate Methods
     
@@ -127,6 +64,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         // download image data - asynch
         
         store.fetchImageForPhoto(photo: photo, completion: {
+            [unowned self]
             (result) -> Void in
             
             OperationQueue.main.addOperation {
@@ -166,10 +104,13 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
     // MARK - Silver Challenge - 4 across images always in potrait and landscape 
     
     func updateCellWithSize(size: CGSize) {
+        
+        // we want the cells to not overlap on the screen either so make approproate spacing between
         print("Update Cell for new window Size \(size)")
         let cellSize = CGSize(width: (size.width / 4), height: (size.width / 4))
         collectionViewFlowLayout.itemSize = cellSize
         collectionViewFlowLayout.minimumInteritemSpacing = 0
+        //collectionViewFlowLayout.minimumLineSpacing = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -190,10 +131,14 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
     // MARK - Gold Challenge - Scroll to items and Animations
     
     func pageUp() {
-        //collectionView.isScrollEnabled = true
-        print("Page Up")
         
+        //collectionView.reloadData()
+        
+        collectionView.setNeedsLayout()
         let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
+        for index in indexPaths {
+            print("Row: \(index.row)")
+        }
         
         var lastPath = IndexPath(row: 0, section: 0)    // starting from nothing
         // find the last shown item
@@ -205,33 +150,32 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         // set last path to one item beyond its view
         lastPath = IndexPath(row: lastPath.row+1, section: lastPath.section)
-        
+
         print("Last Path Number: \(lastPath.row), Photo Count = \(photoDataSource.photos.count - 1)")
         
-        if lastPath.row < (photoDataSource.photos.count - 1) {
+        if lastPath.row <= (photoDataSource.photos.count - 1) {
             print("Page Up started...")
-            collectionView.scrollToItem(at: lastPath, at: .bottom, animated: false)
-            UIView.transition(with: collectionView, duration: 0.5, options: [.transitionCurlUp, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil)
-            print("Page Up concluded...")
+            self.collectionView.scrollToItem(at: lastPath, at: .top, animated: false)
+            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionCurlUp, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
+            print("Page Up completed...")
         }
-        
-        //collectionView.reloadData()
-        //collectionView.isScrollEnabled = false
-        collectionView.reloadData()
     }
     
     func pageDown() {
-        //collectionView.isScrollEnabled = true
         
-        print("Page Down")
+        print("Page Down...initiated")
         
+        collectionView.setNeedsLayout()
         let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
+        for index in indexPaths {
+            print("Row: \(index.row)")
+        }
         
         var firstPath = IndexPath(row: photoDataSource.photos.count, section: 0)
         
         print("indexPaths count \(indexPaths.count)")
         for index in indexPaths {
-            print("Index.row = \(index.row)")
+            //print("Index.row = \(index.row)")
             if index.row < firstPath.row {
                 firstPath = index
             }
@@ -248,14 +192,10 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         if firstPath.row > 0 {
             print("Page Down Started...")
             firstPath = IndexPath(row: firstPath.row-1, section: firstPath.section)
-            
-            collectionView.scrollToItem(at: firstPath, at: .top, animated: false)
-            UIView.transition(with: collectionView, duration: 0.5, options: [.transitionCurlDown, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil)
-            print("Page Down concluded...")
+
+            self.collectionView.scrollToItem(at: firstPath, at: .bottom, animated: false)
+            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionCurlDown, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
+            print("Page Down Completed...")
         }
-        
-        //collectionView.reloadData()
-        //collectionView.isScrollEnabled = false
-        collectionView.reloadData()
     }
 }

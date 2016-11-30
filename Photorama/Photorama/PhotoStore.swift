@@ -121,8 +121,8 @@ class PhotoStore {
             let result = self.processImageRequest(data: data, error: error)
             
             // chapter 19 bronze challenge
-            if let responseHeaderAndFields = response as? HTTPURLResponse {
-                print("Image HTTP Response Status Code: \(responseHeaderAndFields.statusCode) which is in english: \(HTTPURLResponse.localizedString(forStatusCode: responseHeaderAndFields.statusCode))")
+            if (response as? HTTPURLResponse) != nil {
+                //print("Image HTTP Response Status Code: \(responseHeaderAndFields.statusCode) which is in english: \(HTTPURLResponse.localizedString(forStatusCode: responseHeaderAndFields.statusCode))")
                 print("For URL: \(request)")
                 //print("Image HTTP Response Header Fields: \(responseHeaderAndFields.allHeaderFields)")
             }
