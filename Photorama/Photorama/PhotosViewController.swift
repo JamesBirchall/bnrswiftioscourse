@@ -101,7 +101,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    // MARK - Silver Challenge - 4 across images always in potrait and landscape 
+    // MARK: - Silver Challenge - 4 across images always in potrait and landscape 
     
     func updateCellWithSize(size: CGSize) {
         
@@ -128,7 +128,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    // MARK - Gold Challenge - Scroll to items and Animations
+    // MARK: - Gold Challenge - Scroll to items and Animations
     
     func pageUp() {
         
