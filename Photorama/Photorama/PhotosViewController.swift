@@ -101,7 +101,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    // MARK: - Silver Challenge - 4 across images always in potrait and landscape 
+    // MARK: - Silver Challenge - 4 across images always in potrait and landscape
     
     func updateCellWithSize(size: CGSize) {
         
@@ -149,7 +149,11 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         }
         
         // set last path to one item beyond its view
-        lastPath = IndexPath(row: lastPath.row+1, section: lastPath.section)
+        if lastPath.row < photoDataSource.photos.count {
+            //lastPath = IndexPath(row: lastPath.row, section: lastPath.section)
+        } else {
+            lastPath = IndexPath(row: photoDataSource.photos.count - 1, section: lastPath.section)
+        }
 
         print("Last Path Number: \(lastPath.row), Photo Count = \(photoDataSource.photos.count - 1)")
         
@@ -180,8 +184,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
                 firstPath = index
             }
         }
-        
-        // set last path to one item beyond its view
         
         print("First Path Number: \(firstPath.row)")
         
