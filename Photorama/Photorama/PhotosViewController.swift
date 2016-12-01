@@ -26,11 +26,11 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         // swipe gestures for GOLD Challenge
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(pageUp))
-        swipeUp.direction = .up
+        swipeUp.direction = .left
         collectionView.addGestureRecognizer(swipeUp)
 
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(pageDown))
-        swipeDown.direction = .down
+        swipeDown.direction = .right
         collectionView.addGestureRecognizer(swipeDown)
         
         
@@ -107,10 +107,11 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         // we want the cells to not overlap on the screen either so make approproate spacing between
         print("Update Cell for new window Size \(size)")
-        let cellSize = CGSize(width: (size.width / 4), height: (size.width / 4))
+        let cellSize = CGSize(width: (size.width), height: (size.width))
         collectionViewFlowLayout.itemSize = cellSize
         collectionViewFlowLayout.minimumInteritemSpacing = 0
-        //collectionViewFlowLayout.minimumLineSpacing = 0
+        collectionViewFlowLayout.minimumLineSpacing = size.height - size.width
+ 
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,9 +133,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
     
     func pageUp() {
         
-        //collectionView.reloadData()
-        
-        collectionView.setNeedsLayout()
         let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
         for index in indexPaths {
             print("Row: \(index.row)")
@@ -153,9 +151,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         // set last path to one item beyond its view
         if lastPath.row < photoDataSource.photos.count {
-            //lastPath = IndexPath(row: lastPath.row, section: lastPath.section)
-        } else {
-            lastPath = IndexPath(row: photoDataSource.photos.count - 1, section: lastPath.section)
+            lastPath = IndexPath(row: lastPath.row + 1, section: lastPath.section)
         }
 
         print("Last Path Number: \(lastPath.row), Photo Count = \(photoDataSource.photos.count - 1)")
@@ -163,16 +159,14 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         if lastPath.row <= (photoDataSource.photos.count - 1) {
             print("Page Up started...")
             self.collectionView.scrollToItem(at: lastPath, at: .top, animated: false)
-            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionCurlUp, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
+            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionFlipFromRight, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
             print("Page Up completed...")
         }
     }
     
     func pageDown() {
         
-        print("Page Down...initiated")
-        
-        collectionView.setNeedsLayout()
+        //collectionView.setNeedsLayout()
         let indexPaths = collectionView.indexPathsForVisibleItems   // array of all visible items
         for index in indexPaths {
             print("Row: \(index.row)")
@@ -202,7 +196,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
             firstPath = IndexPath(row: firstPath.row-1, section: firstPath.section)
 
             self.collectionView.scrollToItem(at: firstPath, at: .bottom, animated: false)
-            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionCurlDown, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
+            UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionFlipFromLeft, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
             print("Page Down Completed...")
         }
     }
