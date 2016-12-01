@@ -140,6 +140,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
             print("Row: \(index.row)")
         }
         
+        let visibleCells = collectionView.visibleCells
+        print(visibleCells)
+        
         var lastPath = IndexPath(row: 0, section: 0)    // starting from nothing
         // find the last shown item
         for index in indexPaths {
@@ -174,6 +177,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         for index in indexPaths {
             print("Row: \(index.row)")
         }
+        
+        let visibleCells = collectionView.visibleCells
+        print(visibleCells)
         
         var firstPath = IndexPath(row: photoDataSource.photos.count, section: 0)
         
