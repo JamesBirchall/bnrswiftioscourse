@@ -36,17 +36,28 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         store.fetchRecentPhotos(completion: {
             (photosResult) -> Void in
+            
+            
+//            OperationQueue.main.addOperation {
+//                switch photosResult {
+//                case .success(let photos):
+//                    print("Succesfully found \(photos.count) recent photos.")
+//                    self.photoDataSource.photos = photos
+//                case .failure(let error):
+//                    self.photoDataSource.photos.removeAll()
+//                    print("Error fetching recent photos: \(error)")
+//                }
+//                
+//                // self.collectionView.reloadData()    // this vs reload sections?
+//                self.collectionView.reloadSections(IndexSet(integer: 0))
+//            }
+            
+            // Core Data Version
+            let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
+            let allPhotos = try! self.store.fetchMainQueuePhotos(predicate: nil, sortDescriptors: [sortByDateTaken])
+            
             OperationQueue.main.addOperation {
-                switch photosResult {
-                case .success(let photos):
-                    print("Succesfully found \(photos.count) recent photos.")
-                    self.photoDataSource.photos = photos
-                case .failure(let error):
-                    self.photoDataSource.photos.removeAll()
-                    print("Error fetching recent photos: \(error)")
-                }
-                
-                // self.collectionView.reloadData()    // this vs reload sections?
+                self.photoDataSource.photos = allPhotos
                 self.collectionView.reloadSections(IndexSet(integer: 0))
             }
         })

@@ -33,7 +33,7 @@ class PhotoInfoViewController: UIViewController{
         
         // update labels
         photoURL.text = photo.remoteURL.absoluteString
-        dateTaken.text = dateFormatter.string(from: photo.dateTaken)
+        dateTaken.text = dateFormatter.string(from: photo.dateTaken as Date)
         
         store.fetchImageForPhoto(photo: photo, completion: {
             (result) -> Void in

@@ -1,34 +1,30 @@
 //
-//  Photo.swift
+//  Photo+CoreDataClass.swift
 //  Photorama
 //
-//  Created by James Birchall on 27/11/2016.
+//  Created by James Birchall on 04/12/2016.
 //  Copyright © 2016 James Birchall. All rights reserved.
 //
 
+import Foundation
+import CoreData
 import UIKit
 
-class Photo: CustomStringConvertible {
-    let title: String
-    let remoteURL: URL
-    let photoID: String
-    let dateTaken: Date
-    var image: UIImage?  // needs UIKit to make use of, may not have ben downloaded so optional type
+
+public class Photo: NSManagedObject {
     
-    init(title: String, remoteURL: URL, photoID: String, dateTaken: Date) {
-        self.title = title
-        self.remoteURL = remoteURL
-        self.photoID = photoID
-        self.dateTaken = dateTaken
-    }
+    var image: UIImage?    
     
-    var description: String {
-        return "\(title) | \(photoID) | \(dateTaken) | \(remoteURL)"
+    public override func awakeFromInsert() {
+        // when objects added to dabatase they are sent this method
+        super.awakeFromInsert()
+        
+        title = ""
+        photoID = ""
+        remoteURL = URL(fileURLWithPath: "~")
+        photoKey = UUID.init().uuidString
+        dateTaken = Date.init()
     }
+
 }
 
-extension Photo: Equatable {
-    static func ==(lhs: Photo, rhs: Photo) -> Bool {
-        return lhs.photoID == rhs.photoID
-    }
-}

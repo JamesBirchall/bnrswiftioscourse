@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 
 // 3600 calls per hour limited - lets keep a count as well for this reason with hourly reset
@@ -86,7 +87,7 @@ struct FlickrAPI {
         return flickrURL(.recentPhotos, parameters: ["extras" : "url_h,date_taken"])
     }
     
-    static func photosFromJSONData(data: Data) -> PhotoResult {
+    static func photosFromJSONData(data: Data, inContext context: NSManagedObjectContext) -> PhotoResult {
         do {
             let jsonObject: AnyObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
             
@@ -104,7 +105,7 @@ struct FlickrAPI {
             
             var finalPhotos = [Photo]() // Photo array we need to add to later
             for photoJSON in photosArray {
-                if let photo = photosFromJSONObject(json: photoJSON) {
+                if let photo = photosFromJSONObject(json: photoJSON, inContext: context) {
 //                    print(photo)
 //                    print("...Photo Data Printed...")
                     finalPhotos.append(photo)
@@ -127,7 +128,7 @@ struct FlickrAPI {
         }
     }
     
-    private static func photosFromJSONObject(json: [String:AnyObject]) -> Photo? {
+    private static func photosFromJSONObject(json: [String:AnyObject], inContext context: NSManagedObjectContext) -> Photo? {
         guard
             let photoID = json["id"] as? String,
             let title = json["title"] as? String,
@@ -139,6 +140,32 @@ struct FlickrAPI {
                 return nil  // not enough info to construct Photo
         }
         
-        return Photo(title: title, remoteURL: url, photoID: photoID, dateTaken: dateTaken)
+        // Core Data - Lets re-use photos we already have!
+        let fetchRequest = NSFetchRequest<Photo>(entityName: "Photo")
+        let predicate = NSPredicate.init(format: "photoID == \(photoID)", argumentArray: nil)
+        fetchRequest.predicate = predicate
+        
+        var fetchedPhotos: [Photo]!
+        context.performAndWait {
+            fetchedPhotos = try! context.fetch(fetchRequest)
+        }
+        
+        if fetchedPhotos.count > 0 {
+            return fetchedPhotos.first
+        }
+        
+        //return Photo(title: title, remoteURL: url, photoID: photoID, dateTaken: dateTaken)
+        
+        var photo: Photo!
+        context.performAndWait {
+            photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as! Photo
+            photo.title = title
+            photo.photoID = photoID
+            photo.remoteURL = url
+            photo.dateTaken = dateTaken
+
+        }
+        
+        return photo
     }
 }

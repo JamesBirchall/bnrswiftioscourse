@@ -117,15 +117,15 @@
                                     <constraint firstAttribute="width" secondItem="cXa-gm-dUw" secondAttribute="height" multiplier="1:1" id="30U-XJ-1FK"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo URL" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Jua-bx-GpK">
-                                <rect key="frame" x="36" y="423" width="303" height="21"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jua-bx-GpK">
+                                <rect key="frame" x="36" y="423" width="303" height="16"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Taken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Jhn-qa-E1w">
-                                <rect key="frame" x="36" y="452" width="303" height="21"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Taken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jhn-qa-E1w">
+                                <rect key="frame" x="36" y="459" width="303" height="12"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -133,7 +133,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jhn-qa-E1w" firstAttribute="leading" secondItem="Cft-CK-nX3" secondAttribute="leadingMargin" constant="20" id="0Vu-VB-LKD"/>
-                            <constraint firstItem="Jhn-qa-E1w" firstAttribute="top" secondItem="Jua-bx-GpK" secondAttribute="bottom" constant="8" id="6CY-mS-Ewm"/>
+                            <constraint firstItem="Jhn-qa-E1w" firstAttribute="top" secondItem="Jua-bx-GpK" secondAttribute="bottom" constant="20" id="6CY-mS-Ewm"/>
                             <constraint firstItem="Jua-bx-GpK" firstAttribute="top" secondItem="cXa-gm-dUw" secondAttribute="bottom" constant="8" id="ABV-4P-w7V"/>
                             <constraint firstItem="Jua-bx-GpK" firstAttribute="centerX" secondItem="Cft-CK-nX3" secondAttribute="centerX" id="Ac1-Qj-O0q"/>
                             <constraint firstItem="cXa-gm-dUw" firstAttribute="top" secondItem="Opl-EA-WCB" secondAttribute="bottom" constant="8" id="CaS-lR-tWc"/>
