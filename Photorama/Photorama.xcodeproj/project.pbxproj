@@ -11,6 +11,7 @@
 		1A19393C1DF46B2A009B02FE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19393A1DF46B2A009B02FE /* Photo.swift */; };
 		1A19393F1DF46C75009B02FE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19393E1DF46C75009B02FE /* CoreDataStack.swift */; };
 		1A1939431DF471F7009B02FE /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1939411DF471F7009B02FE /* Photo+CoreDataProperties.swift */; };
+		1A1939451DF499BA009B02FE /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1939441DF499BA009B02FE /* ImageStore.swift */; };
 		1A34D59B1DEC3DB6003173EC /* apikey in Resources */ = {isa = PBXBuildFile; fileRef = 1A34D59A1DEC3DB6003173EC /* apikey */; };
 		1A34D59D1DED7C1B003173EC /* PhotoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A34D59C1DED7C1B003173EC /* PhotoDataSource.swift */; };
 		1A34D59F1DED80A4003173EC /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A34D59E1DED80A4003173EC /* PhotoCollectionViewCell.swift */; };
@@ -29,6 +30,7 @@
 		1A19393A1DF46B2A009B02FE /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		1A19393E1DF46C75009B02FE /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		1A1939411DF471F7009B02FE /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1A1939441DF499BA009B02FE /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		1A34D59A1DEC3DB6003173EC /* apikey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apikey; sourceTree = "<group>"; };
 		1A34D59C1DED7C1B003173EC /* PhotoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataSource.swift; sourceTree = "<group>"; };
 		1A34D59E1DED80A4003173EC /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		45D92F211DDA6CCA0045BDC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1A1939441DF499BA009B02FE /* ImageStore.swift */,
 				1A1939411DF471F7009B02FE /* Photo+CoreDataProperties.swift */,
 				1A19393A1DF46B2A009B02FE /* Photo.swift */,
 				1A19393E1DF46C75009B02FE /* CoreDataStack.swift */,
@@ -211,6 +214,7 @@
 				1A19393C1DF46B2A009B02FE /* Photo.swift in Sources */,
 				1A34D5A11DED876A003173EC /* PhotoInfoViewController.swift in Sources */,
 				45D92F0B1DDA6C3D0045BDC4 /* AppDelegate.swift in Sources */,
+				1A1939451DF499BA009B02FE /* ImageStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

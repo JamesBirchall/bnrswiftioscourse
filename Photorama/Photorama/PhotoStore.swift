@@ -22,6 +22,7 @@ class PhotoStore {
     
     // make this class responsible for the CoreDataStack
     let coreDataStack = CoreDataStack(modelName: "Photorama")
+    let imageStore = ImageStore()
     
     static var requestCounter = 0   // used to record requests made to flickr
     
@@ -108,7 +109,7 @@ class PhotoStore {
                 }
                 
                 let objectIDs = photos.map { $0.objectID }
-                let predicate = NSPredicate.init(format: "self IN @", argumentArray: objectIDs)
+                let predicate = NSPredicate(format: "self IN %@", objectIDs)
                 
                 let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
                 
@@ -116,7 +117,9 @@ class PhotoStore {
                 do {
                     try self.coreDataStack.saveChanges()
                     
+                    //
                     let mainQueuePhotos = try self.fetchMainQueuePhotos(predicate: predicate, sortDescriptors:[sortByDateTaken])
+                
                     result = .success(mainQueuePhotos)
                 } catch let error {
                     result = .failure(error)
@@ -136,8 +139,12 @@ class PhotoStore {
     
     func fetchImageForPhoto(photo: Photo, completion: @escaping (ImageResult) -> Void) {
         
+        let photoKey = photo.photoKey
+        
         // if image has already been downloaded then simply re-use and dont re-download
-        if let image = photo.image {
+        if let image = imageStore.imageForKey(key: photoKey) {
+            print("Image recalled from storage...")
+            photo.image = image
             completion(.success(image))
             return
         }
@@ -158,6 +165,8 @@ class PhotoStore {
             // special use of
             if case let .success(image) = result {
                 photo.image = image
+                self.imageStore.setImage(image: image, forKey: photoKey)
+                print("Image Saved Into Storage...")
             }
             
             completion(result)
