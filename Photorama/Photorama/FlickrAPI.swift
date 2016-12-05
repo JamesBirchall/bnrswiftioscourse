@@ -163,7 +163,7 @@ struct FlickrAPI {
             photo.photoID = photoID
             photo.remoteURL = url
             photo.dateTaken = dateTaken
-
+            photo.viewCount = 0 // start with no views
         }
         
         return photo

@@ -108,6 +108,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
                 
                 destinationVC.photo = photo
                 destinationVC.store = store
+                
             }
         }
     }

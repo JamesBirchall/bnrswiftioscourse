@@ -24,6 +24,7 @@ public class Photo: NSManagedObject {
         remoteURL = URL(fileURLWithPath: "~")
         photoKey = UUID.init().uuidString
         dateTaken = Date.init()
+        viewCount = 0  
     }
 
 }
