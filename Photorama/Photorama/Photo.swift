@@ -27,5 +27,14 @@ public class Photo: NSManagedObject {
         viewCount = 0  
     }
 
+    func addTagObject(tag: NSManagedObject) {
+        let currentTags = mutableSetValue(forKey: "tags")
+        currentTags.add(tag)
+    }
+    
+    func removeTagObject(tag: NSManagedObject) {
+        let currentTags = mutableSetValue(forKey: "tags")
+        currentTags.remove(tag)
+    }
 }
 
