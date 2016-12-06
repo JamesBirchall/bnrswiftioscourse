@@ -72,6 +72,11 @@ class TagsViewController: UITableViewController {
     }
     
     @IBAction func done() {
+        do {
+            try self.store.coreDataStack.saveChanges()
+        } catch let error {
+            print("Core Data save Failed: \(error)")
+        }
         dismiss(animated: true, completion: nil)
     }
     
