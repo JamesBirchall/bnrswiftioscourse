@@ -81,12 +81,25 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iMB-tS-5Si">
+                                <rect key="frame" x="36" y="619" width="303" height="29"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Favourites"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentControllerPressed:" destination="BYZ-38-t0r" eventType="valueChanged" id="VPv-84-fVk"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IfU-OG-VV0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6FR-1t-YXY"/>
+                            <constraint firstItem="iMB-tS-5Si" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="I0s-Fb-QSU"/>
                             <constraint firstAttribute="trailing" secondItem="IfU-OG-VV0" secondAttribute="trailing" id="SqB-nO-kgb"/>
                             <constraint firstItem="IfU-OG-VV0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aF5-jn-MCj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iMB-tS-5Si" secondAttribute="trailing" constant="20" id="oHT-wN-SbY"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="iMB-tS-5Si" secondAttribute="bottom" constant="20" id="qSp-dz-hTd"/>
                             <constraint firstAttribute="bottom" secondItem="IfU-OG-VV0" secondAttribute="bottom" id="rVB-x5-HQB"/>
                         </constraints>
                     </view>
@@ -94,6 +107,7 @@
                     <connections>
                         <outlet property="collectionView" destination="IfU-OG-VV0" id="G7U-9L-4l6"/>
                         <outlet property="collectionViewFlowLayout" destination="jML-wd-7LS" id="vV4-aP-f44"/>
+                        <outlet property="segmentedControl" destination="iMB-tS-5Si" id="W8K-qb-KKp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -130,7 +144,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Views: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQJ-Di-vAk">
-                                <rect key="frame" x="143" y="546" width="88" height="21"/>
+                                <rect key="frame" x="143" y="502" width="88" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="yAR-Js-5t3"/>
                                 </constraints>
@@ -139,11 +153,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zb-EB-NIW">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="579" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Tags" id="T9Q-gK-1rx">
                                         <connections>
                                             <segue destination="3Hy-G2-zBa" kind="presentation" identifier="ShowTags" id="Ahf-s9-06T"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Vhf-a3-Pzw"/>
+                                    <barButtonItem systemItem="bookmarks" id="N6M-8m-UVY">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="favouriteClicked" destination="rWR-wI-oX0" id="aVT-Bb-BA3"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -169,8 +190,11 @@
                             <constraint firstItem="cXa-gm-dUw" firstAttribute="leading" secondItem="Cft-CK-nX3" secondAttribute="leadingMargin" id="zPH-te-Y8J"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="dateTaken" destination="Jhn-qa-E1w" id="vDy-jf-B5h"/>
+                        <outlet property="favouriteButton" destination="N6M-8m-UVY" id="zfu-ki-GG2"/>
                         <outlet property="imageView" destination="cXa-gm-dUw" id="lFQ-Ah-FWK"/>
                         <outlet property="photoURL" destination="Jua-bx-GpK" id="E3A-cy-pAC"/>
                         <outlet property="viewCount" destination="NQJ-Di-vAk" id="w9u-Fe-f4a"/>

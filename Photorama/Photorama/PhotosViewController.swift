@@ -10,6 +10,7 @@ import UIKit
 
 class PhotosViewController: UIViewController, UICollectionViewDelegate {
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet var collectionView: UICollectionView!
     //@IBOutlet var imageView: UIImageView!   // we unwrap explicitly because it will be connected by time it is to be used by this classes methods - if crashes then we need to know
     var store: PhotoStore!
@@ -34,35 +35,35 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         collectionView.addGestureRecognizer(swipeDown)
         
         
-        store.fetchRecentPhotos(completion: {
-            (photosResult) -> Void in
-            
-            
+//        store.fetchRecentPhotos(completion: {
+//            (photosResult) -> Void in
+//            
+//            
+////            OperationQueue.main.addOperation {
+////                switch photosResult {
+////                case .success(let photos):
+////                    print("Succesfully found \(photos.count) recent photos.")
+////                    self.photoDataSource.photos = photos
+////                case .failure(let error):
+////                    self.photoDataSource.photos.removeAll()
+////                    print("Error fetching recent photos: \(error)")
+////                }
+////                
+////                // self.collectionView.reloadData()    // this vs reload sections?
+////                self.collectionView.reloadSections(IndexSet(integer: 0))
+////            }
+//            
+//            // Core Data Version
+//            let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
+//            let allPhotos = try! self.store.fetchMainQueuePhotos(predicate: nil, sortDescriptors: [sortByDateTaken])
+//            
 //            OperationQueue.main.addOperation {
-//                switch photosResult {
-//                case .success(let photos):
-//                    print("Succesfully found \(photos.count) recent photos.")
-//                    self.photoDataSource.photos = photos
-//                case .failure(let error):
-//                    self.photoDataSource.photos.removeAll()
-//                    print("Error fetching recent photos: \(error)")
-//                }
-//                
-//                // self.collectionView.reloadData()    // this vs reload sections?
+//                self.photoDataSource.photos = allPhotos
 //                self.collectionView.reloadSections(IndexSet(integer: 0))
 //            }
-            
-            // Core Data Version
-            let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
-            let allPhotos = try! self.store.fetchMainQueuePhotos(predicate: nil, sortDescriptors: [sortByDateTaken])
-            
-            OperationQueue.main.addOperation {
-                self.photoDataSource.photos = allPhotos
-                self.collectionView.reloadSections(IndexSet(integer: 0))
-            }
-        })
+//        })
         
-        
+        showImagesWithFilter()  // select correct images
     }
     
     // MARK - UICollectionViewDelegate Methods
@@ -119,7 +120,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         
         // we want the cells to not overlap on the screen either so make approproate spacing between
         print("Update Cell for new window Size \(size)")
-        let cellSize = CGSize(width: (size.width), height: (size.width))
+        let cellSize = CGSize(width: (size.width) / 4, height: (size.width) / 4)
         collectionViewFlowLayout.itemSize = cellSize
         collectionViewFlowLayout.minimumInteritemSpacing = 0
         collectionViewFlowLayout.minimumLineSpacing = size.height - size.width
@@ -210,6 +211,45 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
             self.collectionView.scrollToItem(at: firstPath, at: .bottom, animated: false)
             UIView.transition(with: self.collectionView, duration: 0.5, options: [.transitionFlipFromLeft, .curveEaseIn], animations: { self.view.layoutIfNeeded() }, completion: nil )
             print("Page Down Completed...")
+        }
+    }
+    
+    @IBAction func segmentControllerPressed(_ sender: UISegmentedControl) {
+        showImagesWithFilter()
+    }
+    
+    func showImagesWithFilter() {
+        
+        if segmentedControl.selectedSegmentIndex == 1 {
+            // 1 selected
+            print("Favourites selected")
+            
+            //let sortDescriptor = NSSortDescriptor(key: "favourite == true", ascending: true)
+            let favouritePredicate = NSPredicate(format: "favourite == true")
+            
+            store.fetchRecentPhotos(completion: {
+                (photosResult) -> Void in
+                let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
+                let allPhotos = try! self.store.fetchMainQueuePhotos(predicate: favouritePredicate, sortDescriptors: [sortByDateTaken])
+                
+                OperationQueue.main.addOperation {
+                    self.photoDataSource.photos = allPhotos
+                    self.collectionView.reloadSections(IndexSet(integer: 0))
+                }
+            })
+        } else {
+            print("All Photos selected")
+            
+            store.fetchRecentPhotos(completion: {
+                (photosResult) -> Void in
+                let sortByDateTaken = NSSortDescriptor(key: "dateTaken", ascending: true)
+                let allPhotos = try! self.store.fetchMainQueuePhotos(predicate: nil, sortDescriptors: [sortByDateTaken])
+                
+                OperationQueue.main.addOperation {
+                    self.photoDataSource.photos = allPhotos
+                    self.collectionView.reloadSections(IndexSet(integer: 0))
+                }
+            })
         }
     }
 }

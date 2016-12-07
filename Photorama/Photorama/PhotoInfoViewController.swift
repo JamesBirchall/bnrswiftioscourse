@@ -14,6 +14,7 @@ class PhotoInfoViewController: UIViewController{
     @IBOutlet weak var photoURL: UILabel!
     @IBOutlet weak var dateTaken: UILabel!
     @IBOutlet weak var viewCount: UILabel!
+    @IBOutlet weak var favouriteButton: UIBarButtonItem!
     
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -37,6 +38,9 @@ class PhotoInfoViewController: UIViewController{
         dateTaken.text = dateFormatter.string(from: photo.dateTaken as Date)
         photo.viewCount += 1    // viewed once more!
         self.viewCount.text = "Views: \(photo.viewCount)"
+        if photo.favourite {
+            favouriteButton.tintColor = UIColor.blue
+        }
         
         store.fetchImageForPhoto(photo: photo, completion: {
             (result) -> Void in
@@ -66,6 +70,23 @@ class PhotoInfoViewController: UIViewController{
             
             tagController.store = store
             tagController.photo = photo
+        }
+    }
+    
+    @IBAction func favouriteClicked() {
+        // here to save the fact this is now a favourite item!
+        if photo.favourite {
+            photo.favourite = false
+            favouriteButton.tintColor = UIColor.lightGray
+        } else {
+            photo.favourite = true
+            favouriteButton.tintColor = UIColor.blue
+        }
+        
+        do {
+            try self.store.coreDataStack.saveChanges()
+        } catch let error {
+            print("Core Data save Failed: \(error)")
         }
     }
 }

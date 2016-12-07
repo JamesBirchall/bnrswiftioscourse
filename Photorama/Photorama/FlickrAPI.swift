@@ -164,6 +164,7 @@ struct FlickrAPI {
             photo.remoteURL = url
             photo.dateTaken = dateTaken
             photo.viewCount = 0 // start with no views
+            photo.favourite = false // start with no favourites!
         }
         
         return photo
