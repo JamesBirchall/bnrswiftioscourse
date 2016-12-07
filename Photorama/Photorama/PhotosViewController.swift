@@ -123,7 +123,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         let cellSize = CGSize(width: (size.width) / 4, height: (size.width) / 4)
         collectionViewFlowLayout.itemSize = cellSize
         collectionViewFlowLayout.minimumInteritemSpacing = 0
-        collectionViewFlowLayout.minimumLineSpacing = size.height - size.width
+        //collectionViewFlowLayout.minimumLineSpacing = size.height - size.width
  
     }
     
