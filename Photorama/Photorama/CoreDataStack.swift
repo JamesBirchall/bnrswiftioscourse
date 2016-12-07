@@ -45,8 +45,6 @@ class CoreDataStack {
             print("Problem adding Persistent Store: \(error)")
         }
         
-        print(#function)
-        
         return coordinator
     }()
     
@@ -55,7 +53,13 @@ class CoreDataStack {
         moc.persistentStoreCoordinator = self.persistentStoreCoordinator
         moc.name = "Main Queue Context (UI Context)"
         
-        print(#function)
+        return moc
+    }()
+    
+    lazy var privateQueueContext: NSManagedObjectContext = {
+        let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        moc.parent = self.mainQueueContext
+        moc.name = "Primary Private Queue Context"
         return moc
     }()
     
@@ -66,6 +70,21 @@ class CoreDataStack {
     
     func saveChanges() throws {
         var error: Error?
+        
+        
+        privateQueueContext.performAndWait {
+            if self.privateQueueContext.hasChanges {
+                do {
+                    try self.privateQueueContext.save()
+                } catch let saveError {
+                    error = saveError
+                }
+            }
+        }
+        
+        if let error = error {
+            throw error
+        }
         
         mainQueueContext.performAndWait {
             
